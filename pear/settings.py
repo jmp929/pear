@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+# os.getenv allows us to set enviroment variables
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+SETTINGS_PATH = Path(__file__).resolve().parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -23,9 +27,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'y18gty3xg$i8l(7#%@0y!hlzj^+hktn3*=bz@w077gstr-t&7a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DJANGO_DEBUG_FLAG', True)
 
+# when DEBUG is true and ALLOWED_HOSTS is empty, host is validated against ['.localhost', '127.0.0.1', '[::1]']
 ALLOWED_HOSTS = []
+
+# If DEBUG is true, this adds a layer of functionality. This tells Django its okay to disclose sensitive information whtin its requests and  allows for the debug tool bar
+INTERNAL_IPS = ['127.0.0.1']
 
 
 # Application definition
@@ -37,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dashboard'
 ]
 
 MIDDLEWARE = [
@@ -49,12 +58,21 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if DEBUG:
+    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.append("debug_toolbar")
+
 ROOT_URLCONF = 'pear.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            "templates",
+            "dashboard/templates"
+
+
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,8 +93,12 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DJANGO_DB_NAME', 'pear_dev'),    # needs to be changed to local setup
+        'USER': os.getenv('DJANGO_DB_USER', 'joshuaparker'),    # needs to be changed to local setup
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),    # needs to be changed to local setup
+        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),    # needs to be changed to local setup
+        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),    # needs to be changed to local setup
     }
 }
 
