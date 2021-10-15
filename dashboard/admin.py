@@ -1,3 +1,10 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import (
+    Dataset,
+    DataPair,
+    SetToUser
+)
+
+
+admin.site.register((Dataset, DataPair, SetToUser))
