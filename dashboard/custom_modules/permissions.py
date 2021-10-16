@@ -8,8 +8,10 @@ from dashboard.models import (
 class UsersDataPermission(BasePermission):
 
     def has_permission(self, request, view):
-        print("fififi")
         if SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_read=True).exists() and request.method in SAFE_METHODS:
-            return IsAuthenticated
+            return True
+        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_write=True).exists():
+            return True
         else:
             return False
+            

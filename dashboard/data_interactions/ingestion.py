@@ -37,7 +37,7 @@ class IngestData:
         for lines in split_every(csv_data):
             objs = []
             for line in lines:
-                objs.append(DataPair(key=line[0], value=line[1], dataset=self.dataset))
-            print(objs)
-            DataPair.objects.bulk_create(objs, ignore_conflicts=True)
+                DataPair.objects.get_or_create(key=line[0], value=line[1], dataset=self.dataset)
+            #     objs.append(DataPair(key=line[0], value=line[1], dataset=self.dataset))
+            # DataPair.objects.bulk_create(objs, ignore_conflicts=True)
         return True

@@ -1,9 +1,11 @@
 from django.urls import path
-from .views import DataPairSurveyView, UserDataSetsView
+from .views import DataPairSurveyView, UserDataSetsView, UserDataDataPairView
 
 urlpatterns = [
-    path('getvalue/<slug:key>/<slug:dataset>/', DataPairSurveyView.as_view(), name="get_value"),
-    path('getUserSets/', UserDataSetsView.as_view(), name="get_user_sets")
+    path('getValue/<slug:key>/<slug:dataset>/', DataPairSurveyView.as_view(), name="get_value"),
+    path('userSets/', UserDataSetsView.as_view(), name="user_sets"),
+    path('userPair/<slug:key>/<slug:value>/<slug:dataset_name>', UserDataDataPairView.as_view(), name="user_pairs"),
+    
 
 ]
 

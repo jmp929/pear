@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from dashboard.models import Dataset
+from dashboard.models import DataPair, Dataset
  
 
 class MultipleFieldLookupMixin(APIView):
@@ -11,32 +11,32 @@ class MultipleFieldLookupMixin(APIView):
     
     def get_object(self):
         try:
-            print(self.__class__.__name__)
-
             queryset = self.get_queryset()             # type: ignore
             queryset = self.filter_queryset(queryset)  # type: ignore
             filter = {}
+            print(self.lookup_fields)
             for field in self.lookup_fields:           # type: ignore
                 if self.kwargs.get(field, None): 
                     if self.__class__.__name__ == "DataPairSurveyView" and field == 'dataset':
                        filter[field] = Dataset.objects.get(name=self.kwargs[field])
                     else:
                         filter[field] = self.kwargs[field]
+            print(filter)
+            print(queryset.filter(**filter).values())
             obj = get_object_or_404(queryset, **filter)  # Lookup the object
             self.check_object_permissions(self.request, obj)
             return obj
         except Exception as e:
-            print(self.lookup_fields)   # type: ignore
-            print(self.kwargs)
-            raise
+            print(e)
+            raise e
 
 
 class GetRelatedMixin:
-
-    def get_related(self, queryset):
-
-        if hasattr(self, "select_related_fields"):
-            queryset = queryset.select_related(*self.select_related_fields)  # type: ignore
-        if hasattr(self, "prefetch_related_fields"):
-            queryset = queryset.prefetch_related(*self.prefetch_related_fields)  # type: ignore
+    @classmethod
+    def get_related(cls, queryset):
+        if hasattr(cls, "select_related_fields"):
+            queryset = queryset.select_related(*cls.select_related_fields)  # type: ignore
+        if hasattr(cls, "prefetch_related_fields"):
+            queryset = queryset.prefetch_related(*cls.prefetch_related_fields)  # type: ignore
+        print(DataPair.objects.select_related('dataset').values('dataset__name'))
         return queryset
