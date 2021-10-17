@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Accordion from 'react-bootstrap/Accordion';
 import '/Users/davidlundberg/pear/frontend/src/index.css';
+import Logo from '/Users/davidlundberg/pear/frontend/src/images/logo.svg';
+import { useHistory } from 'react-router-dom';
 
 
-function Login({Login, error}) {
-    // Sets up the details passed in from the App into a useState 
-    // This is more for me to make sure that useState worked properly 
-    // Going to need to figure out how to pass the backend info into the frontend
+function Login({Login, error, buttonClicked}) {
+    const path = useHistory();
     const [details, setDetails] = useState({email: "", password: ""})
+
+    const [show, setShow] = useState(false);
+
+
 
     // Handles submit and prevents default empty form
     const submitHandler = e => {
@@ -19,45 +22,27 @@ function Login({Login, error}) {
         Login(details);
     }
 
+
     return (
         <Container>
-                <Accordion className="pt-5 pb-5" defaultActiveKey="0">
-                    <Accordion.Item eventKey="0">
-                        <Accordion.Header className="accordion-header">Welcome to Pear</Accordion.Header>
-                        <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-                        veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-                        commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                        cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-                        est laborum.
-                        </Accordion.Body>
-                    </Accordion.Item>
-                </Accordion>
                 <Card className="login-card">
                 <Card.Body>
                     <form onSubmit={submitHandler}>
-                        <h3>Log in</h3>
+                        <img className="logo" src={Logo} alt="Pear Logo"/>
+                        <h1 className="login-title font">Pear</h1>
+                        <p className="login-title subtitle font">A one stop shop for you and your data pairs</p>
+                        <div className="login-inputs ">
+                            <div className="form-group">
+                                <input type="email" className="form-control login-credentials" placeholder="Email Address" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
+                            </div>
 
-                        <div className="form-group">
-                            <label>Email</label>
-                            <input type="email" className="form-control" placeholder="Enter email" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
-                        </div>
-
-                        <div className="form-group">
-                            <label>Password</label>
-                            <input type="password" className="form-control" placeholder="Enter password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
-                        </div>
-
-                        <div className="form-group">
-                            <div className="custom-control custom-checkbox">
-                                <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                                <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
+                            <div className="form-group">
+                                <input type="password" className="form-control login-credentials" placeholder="Password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
                             </div>
                         </div>
-
-                        <button type="submit" className="btn btn-dark btn-lg btn-block">Sign in</button>
+                        <button className="btn login-btn btn-lg btn-block" onClick={(() => path.push('/home'))}>Log In</button>
+                        <p className="need-account font">Don't have an account?</p>
+                        <button type="submit" className="btn btn-create btn-lg btn-block" onClick={buttonClicked}>Create Account</button>
                         <p className="forgot-password text-right">
                             Forgot <a href="#">password?</a>
                         </p>
