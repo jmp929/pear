@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+.login-card {
+    content: '';
+    /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
+    background-color: #C7F9CC;
+    margin: auto;
+    margin-top: 50px;
+    height: 671px;
+    width: 455px;
+    padding: 10px;
+}
+
+.navbar {
+    content: '';
+    /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
+    background-color: #38A3A5;
+}
+
+.login-credentials {
+    content: '';
+    margin: auto;
+    margin-bottom: 40px;
+    margin-top: 20px;
+    padding: 10px;
+    width: 259px;
+    height: 63px;
+    
+}
+
+.need-account {
+    content: '';
+    margin-top: 20px;
+}
+
+.login-btn {
+    background-color: #22577A;
+    color: white;
+}
+
+.btn-create {
+    background-color: #57CC99;
+    color: white;
+}
+
+.login-inputs {
+    margin: auto;
+}
+
+.font {
+    color: #22577A;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.modal-header-footer {
+    background-color: #38A3A5;
+}
+
+.modal-body {
+    background-color: #C7F9CC;
+}
+
+.modal-title {
+    color: white;
+    margin-left: 160px;
+}
+
+.modal-btn {
+    margin: auto;
+}
+
+.logo {
+    max-width: 20%;
+    height: auto;
+}
+
+.forgot-password {
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 20px;
+}
+
+.subtitle {
+    margin-bottom: 40px;
+}
+
+.navbar-logo {
+    max-width: 3%;
+    height: auto;
+}
+
+.navbar-title {
+    color: white;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 40px;
+    margin-left: 20px;
+}
+.navbar {
+    box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+}
+.logout-btn {
+    position: absolute;
+    background-color: #57CC99;
+    right: 70px;
+    width: 135px;
+    margin-right: 10px;
+}
+
+.table-header-footer {
+    background-color: #38A3A5;
+}
+
+.font-color-white {
+    color: white;
+}
+.weight-light {
+    font-weight: 175;
+}
+
+.table th {
+    border: #308c8e solid 1px !important;
+}
+
+.table td {
+    background-color: white;
+    font-family: 'Courier New', Courier, monospace;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+.table-footer-color {
+    background-color: #38A3A5 !important;
+}
+
+.add-modal-body {
+    background-color: white;
+}
+
+.back-to-home {
+    position: relative;
+    left: 0;
+}
+
+.delete-trashcan {
+    max-width: 4%;
+    height: auto;
+}
+
+.add-data-title {
+    font-size: 75px;
+}
+
+.delete {
+    color: red;
+
+}
+
+.btn-add-row {
+    background-color: lightgray;
+}
