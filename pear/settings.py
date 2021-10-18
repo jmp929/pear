@@ -114,9 +114,9 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'pear_dev'),    # needs to be changed to local setup
-        'USER': os.getenv('DJANGO_DB_USER', 'joshuaparker'),    # needs to be changed to local setup
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', ''),    # needs to be changed to local setup
+        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),    # needs to be changed to local setup
+        'USER': os.getenv('DJANGO_DB_USER', 'postgres'),    # needs to be changed to local setup
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'postgres'),    # needs to be changed to local setup
         'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),    # needs to be changed to local setup
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),    # needs to be changed to local setup
     }
