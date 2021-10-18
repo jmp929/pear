@@ -2,6 +2,7 @@
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logout from './views/auth/Logout'
 import Login from './views/auth/Login.js' ;
 import Signup from './views/auth/Signup';
 import Navbarr from './components/layout/Navbarr';
@@ -66,7 +67,6 @@ function App() {
         <Switch>
           <Route exact path="/">
             <Login Login={Login_details} error={error} buttonClicked={signUpHandler}/>
-            <Signup show={showState} buttonClicked={signUpHandler}/>
           </Route>
           <Route exact path="/home">
             <Navbarr />
@@ -80,6 +80,9 @@ function App() {
           <Route exact path="/add">
             <Navbarr />
             <AddData />
+          </Route>
+          <Route exact path="/signup">
+            <Signup/>
           </Route>
         </Switch>
       </Router>

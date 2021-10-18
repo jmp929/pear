@@ -1,17 +1,45 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import '../../index.css';
 import Logo from '../../images/logo.svg';
 import { useHistory } from 'react-router-dom';
-
+import Logout from '../../views/auth/Logout';
 
 function Navbarr() {
     const path = useHistory();
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (localStorage.getItem('token') == null) {
+        window.location.replace('http://localhost:3000/');
+        } else {
+        setLoading(false);
+        }
+    }, []);
+
+    const handleLogout = e => {
+        e.preventDefault();
+
+        fetch('http://127.0.0.1:8000/api/v1/users/auth/logout/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+        })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data);
+            localStorage.clear();
+            window.location.replace('http://localhost:3000/');
+        });
+    };
+    
     return (
         <Navbar className="navbar shadow" expand="lg">
             <img className="navbar-logo" src={Logo} alt="Pear Logo"/>
             <h1 className="navbar-title">Pear</h1>
-            <button className='logout-btn btn btn-create btn-lg btn-block weight-light' onClick={() => path.push('/')}>Log Out</button>
+            <button className='logout-btn btn btn-create btn-lg btn-block weight-light' onClick={handleLogout}>Log Out</button>
         </Navbar>
     )
 }

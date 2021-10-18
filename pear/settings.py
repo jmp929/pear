@@ -79,8 +79,10 @@ if DEBUG:
     # INSTALLED_APPS.append("debug_toolbar")
 
     ALLOWED_CORS_ORIGINS = [
-        'http://localhost:3000'
+        '*'
     ]
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'pear.urls'
 
@@ -114,11 +116,9 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-
         'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),    # needs to be changed to local setup
         'USER': os.getenv('DJANGO_DB_USER', 'postgres'),    # needs to be changed to local setup
         'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'postgres'),    # needs to be changed to local setup
-
         'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),    # needs to be changed to local setup
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),    # needs to be changed to local setup
     }
