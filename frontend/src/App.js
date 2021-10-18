@@ -17,7 +17,7 @@ import { Button } from 'bootstrap';
 function App() {
   
 
-  const [user, setUser] = useState({email: ""});
+  const [user, setUser] = useState({email: "", password: ""});
   const [error, setError] = useState("");
 
   // Show Sign Up Modal
@@ -50,7 +50,8 @@ function App() {
     console.log(details);
     // Sets the user state
     setUser({
-      email: details.email
+      email: details.email,
+      password: details.password
     });
   }
 

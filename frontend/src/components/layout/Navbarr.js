@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
-import '/Users/davidlundberg/pear/frontend/src/index.css';
-import Logo from '/Users/davidlundberg/pear/frontend/src/images/logo.svg';
+import '../../index.css';
+import Logo from '../../images/logo.svg';
 import { useHistory } from 'react-router-dom';
 
 

@@ -5,8 +5,8 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import '/Users/davidlundberg/pear/frontend/src/index.css';
-import Trashcan from '/Users/davidlundberg/pear/frontend/src/images/delete_trashcan.png';
+import '../../index.css';
+import Trashcan from '../../images/delete_trashcan.png';
 import { useHistory } from 'react-router-dom';
 
 function Dataset() {

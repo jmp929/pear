@@ -1,10 +1,16 @@
 import React, { useState } from "react";
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import '/Users/davidlundberg/pear/frontend/src/index.css';
-import Logo from '/Users/davidlundberg/pear/frontend/src/images/logo.svg';
+import '../../index.css';
+import Logo from '../../images/logo.svg';
 import { useHistory } from 'react-router-dom';
 
+async function loginUser(details) {
+    return fetch('http://localhost:8000/api/v1/users/auth/login/', {
+        method: 'POST',
+        body: JSON.stringify(details)
+    })
+}
 
 function Login({Login, error, buttonClicked}) {
     const path = useHistory();

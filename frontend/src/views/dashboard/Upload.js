@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Container from "react-bootstrap/Container";
-import '/Users/davidlundberg/pear/frontend/src/index.css';
+import '../../index.css';
 
 function Upload(props) {
 

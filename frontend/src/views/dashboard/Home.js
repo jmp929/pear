@@ -3,7 +3,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import '/Users/davidlundberg/pear/frontend/src/index.css';
+import '../../index.css';
 import { useHistory } from 'react-router-dom';
 
 

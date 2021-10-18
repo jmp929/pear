@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import '/Users/davidlundberg/pear/frontend/src/index.css';
+import '../../index.css';
 
 function Signup(props) {
 
