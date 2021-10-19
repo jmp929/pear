@@ -193,3 +193,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 ACCEPTABLE_FILE_TYPES = {'.xlsx', '.csv'}
+
+# Configure Django App for Heroku.
+import django_heroku
+django_heroku.settings(locals())
