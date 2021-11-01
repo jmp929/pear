@@ -27,7 +27,7 @@ SETTINGS_PATH = Path(__file__).resolve().parent
 SECRET_KEY = 'y18gty3xg$i8l(7#%@0y!hlzj^+hktn3*=bz@w077gstr-t&7a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG_FLAG', True)
+DEBUG = os.getenv('DJANGO_DEBUG_FLAG', False)
 
 # when DEBUG is true and ALLOWED_HOSTS is empty, host is validated against ['.localhost', '127.0.0.1', '[::1]']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
@@ -164,9 +164,9 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',   
     ],
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
-    ]
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 
 # Internationalization

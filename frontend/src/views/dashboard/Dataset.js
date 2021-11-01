@@ -11,20 +11,211 @@ import { useHistory } from 'react-router-dom';
 
 function Dataset() {
     const path = useHistory();
-    const Data =[
-        {
-            Zipcode: 1001,
-            District: 2501
-        },
-        {
-            Zipcode: 1002,
-            District: 2502
-        },
-        {
-            Zipcode: 1003,
-            District: 2503
-        }
+    
+    var Data =[
+        {Zipcode: 
+            1001
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1002
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1003
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1005
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1007
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1008
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1009
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1010
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1011
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1012
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1013
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1020
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1022
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1026
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1027
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1028
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1029
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1030
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1031
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1032
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1033
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1034
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1035
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1036
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1037
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1038
+            ,
+            District: 
+            2502
+            },
+            {Zipcode: 
+            1039
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1040
+            ,
+            District: 
+            2501
+            },
+            {Zipcode: 
+            1050
+            ,
+            District: 
+            2501
+            },
+
     ]
+    
+    console.log(localStorage.getItem('token'));
+
+    fetch('http://localhost:8000/api/v1/data/userSet/test/', {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
+        }
+    })
+        .then(res => res.json())
+        .then(data => {
+            for (const row of data) {
+                    if(row.key != "zip") {
+                    Data.push({
+                        Zipcode: row.key,
+                        District: row.value
+                    });
+                //     document.getElementById("table").innerHTML += `<tr>
+                //     <td>` +row.key + `</td>
+                //     <td>` + row.value + `</td>
+                //     <td>
+                //         <img className="delete-trashcan" src={Trashcan} alt="Pear Logo"/>
+                //     </td>
+                // </tr>`
+                    }
+        }
+        });
 
     return (
         <div>
@@ -68,7 +259,7 @@ function Dataset() {
                     </Col>
                 </Row>
                 <Row>
-                <Table className="table" hover bordered>
+                <Table className="table" id='table' hover bordered>
                         <thead className="table-header-footer">
                             <tr>
                                 <th className="font-color-white weight-light">ZipCode</th>

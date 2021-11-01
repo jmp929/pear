@@ -73,10 +73,10 @@ function AddData() {
                                 <th colSpan="3">
                                 <Row>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Upload Data</button>
+                                        <button type="submit" className='btn btn-create btn-block weight-light' onClick={() => path.push('/upload')}>Upload Data</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-add-row btn-block weight-light' >Add Row</button>
+                                        <button type="submit" className='btn btn-add-row btn-block weight-light'>Add Row</button>
                                     </Col>
                                     <Col></Col>
                                 </Row>                      

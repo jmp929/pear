@@ -21,6 +21,7 @@ class DataSetSerializer(GetRelatedMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
+        # fields = '__all__'
         exclude = ("created", "last_queried", "last_edited")
 
         

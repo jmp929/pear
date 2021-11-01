@@ -84,6 +84,9 @@ function App() {
           <Route exact path="/signup">
             <Signup/>
           </Route>
+          <Route exact path="/upload">
+            <Upload/>
+          </Route>
         </Switch>
       </Router>
 
