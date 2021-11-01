@@ -224,7 +224,7 @@ function Dataset() {
                         <p className="back-to-home font pt-3 pb-2 fs-4" onClick={() => path.push('/home')}><u>Back to Home</u></p>
                 </Col>
                 <Col md={8}>
-                    <h1 className="welcome font pt-3 pb-2">Zip Code to Congressional District</h1>
+                    <h1 className="welcome font pt-3 pb-2">Demo</h1>
                 </Col>
                 <Col>
                     <Button variant="danger"  size="lg" className="mt-2 weight-light">Delete Dataset</Button>
