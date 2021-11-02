@@ -1,6 +1,7 @@
 from django.db.models import query
 from django.http.response import HttpResponse
 from django.shortcuts import render
+import json
 from rest_framework import status, generics, mixins
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -77,7 +78,7 @@ class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
 
     
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
-class UserDataDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView):
+class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
@@ -102,6 +103,34 @@ class UserDataDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generi
     #         return True
 
 
+# retrieve works, delete works, need to make custom edit that only allows a change to key value
+class UserDataSetView(UsersDataPermission, generics.ListAPIView):
+    queryset = DataPair.objects.all()
+    serializer_class = DataPairSerializer
+    # lookup_fields = []
+    authentication_classes = [BasicAuthentication]
+
+    def list(self, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        dataset = self.get_dataset()
+        objs = {
+            'dataset': json.dumps(dataset, indent=4, sort_keys=True, default=str),
+            'data_pairs': serializer.data
+        }
+        return Response(objs)
+
+    def get_dataset(self):
+        dataset_name = self.kwargs['dataset_name']
+        dataset = Dataset.objects.filter(name=dataset_name).values()[0]
+        return dataset
+        
+
+    def get_queryset(self):
+        dataset_name = self.kwargs['dataset_name']
+        dataset = Dataset.objects.filter(name=dataset_name)[0]
+        data_pairs =  DataPair.objects.filter(dataset=dataset)
+        return data_pairs
 
 
 
@@ -109,24 +138,3 @@ class UserDataDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generi
 
 
 
-
-
-
-
-# class UploadFileView(generics.CreateAPIView):
-#     serializer_class = DataPairSerializer
-
-#     def create(self, request, *args, **kwargs):
-#         serializer = self.get_serializer(data=request.data)
-#         serializer.is_valid(raise_exception=True)
-#         file = serializer.validated_data['file']
-#         file_type, issue = FileValidator(file)
-#         if file_type is None:
-#             return HttpResponse(status=400, headers={'error': issue})
-#         ingestor = IngestData(request.user, request.dataset_name)
-#         success = ingestor.ingest_csv(file)
-
-#         if success:
-#             return HttpResponse(status=201)
-#         else:
-#             return HttpResponse(status=400, headers={'error': issue})

@@ -21,14 +21,14 @@ class DataSetSerializer(GetRelatedMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        fields = '__all__'  # need to change later
+        exclude = ("created", "last_queried", "last_edited")  # need to change later
 
         
 
 
 class DataPairSerializer(serializers.ModelSerializer):
     # select_related_fields = ['dataset']
-    dataset = DataSetSerializer()
+    # dataset = DataSetSerializer()
     class Meta:
         model = DataPair
         fields = '__all__'
