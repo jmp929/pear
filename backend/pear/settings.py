@@ -119,7 +119,7 @@ db_url = urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['pear-app'],    # needs to be changed to local setup
+        'NAME': os.environ['pear-backend'],    # needs to be changed to local setup
         'USER': db_url.username,   # needs to be changed to local setup
         'PASSWORD': db_url.password,    # needs to be changed to local setup
         'HOST': db_url.hostname,   # needs to be changed to local setup
