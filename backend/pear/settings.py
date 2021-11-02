@@ -82,7 +82,7 @@ if DEBUG:
         '*'
     ]
 
-CORS_ORIGIN_ALLOW_ALL = True
+CORS_ORIGIN_ALLOW_ALL = False
 
 ROOT_URLCONF = 'pear.urls'
 
@@ -113,14 +113,17 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
+import urlparse
+db_url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),    # needs to be changed to local setup
-        'USER': os.getenv('DJANGO_DB_USER', 'postgres'),    # needs to be changed to local setup
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'postgres'),    # needs to be changed to local setup
-        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),    # needs to be changed to local setup
-        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),    # needs to be changed to local setup
+        'NAME': os.environ['pear-app'],    # needs to be changed to local setup
+        'USER': db_url.username,   # needs to be changed to local setup
+        'PASSWORD': db_url.password,    # needs to be changed to local setup
+        'HOST': db_url.hostname,   # needs to be changed to local setup
+        'PORT': db_url.port,    # needs to be changed to local setup
     }
 }
 
