@@ -113,8 +113,8 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-import urlparse
-db_url = urlparse.urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
+from urllib.parse import urlparse
+db_url = urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
 
 DATABASES = {
     'default': {
