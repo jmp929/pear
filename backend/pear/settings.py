@@ -104,9 +104,6 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 
-from urllib.parse import urlparse
-db_url = urlparse(os.environ.get('OPENSHIFT_POSTGRESQL_DB_URL'))
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
