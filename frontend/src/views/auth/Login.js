@@ -30,7 +30,7 @@ const Login = () => {
         password: password
       };
   
-      fetch('/api/v1/users/auth/login/', {
+      fetch('http://172.30.119.246:8080/api/v1/users/auth/login/', {
         method: 'POST',
         headers: {
             Accept : 'application/json',
