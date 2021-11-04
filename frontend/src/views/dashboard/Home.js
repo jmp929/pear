@@ -29,7 +29,7 @@ function Home(buttonClicked) {
         }
     ]
 
-    fetch('http://172.30.119.246:8080/api/v1/data/userSets/', {
+    fetch('http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSets/', {
         method: 'GET',
         headers: {
             Authorization: `Token ${localStorage.getItem('token')}`

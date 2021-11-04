@@ -28,7 +28,7 @@ const Signup = () => {
       password2: password2
     };
 
-    fetch('http://172.30.119.246:8080/api/v1/users/auth/register/', {
+    fetch('http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/register/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

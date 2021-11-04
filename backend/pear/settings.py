@@ -78,6 +78,8 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+
+
 ROOT_URLCONF = 'pear.urls'
 
 TEMPLATES = [
