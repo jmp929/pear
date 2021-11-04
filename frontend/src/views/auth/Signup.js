@@ -13,7 +13,7 @@ const Signup = () => {
 
   useEffect(() => {
     if (localStorage.getItem('token') !== null) {
-      window.location.replace('http://localhost:3000/');
+      window.location.replace('/');
     } else {
       setLoading(false);
     }
@@ -28,7 +28,7 @@ const Signup = () => {
       password2: password2
     };
 
-    fetch('http://127.0.0.1:8000/api/v1/users/auth/register/', {
+    fetch('/api/v1/users/auth/register/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -40,7 +40,7 @@ const Signup = () => {
         if (data.key) {
           localStorage.clear();
           localStorage.setItem('token', data.key);
-          window.location.replace('http://localhost:3000/home');
+          window.location.replace('/home');
         } else {
           setEmail('');
           setPassword1('');

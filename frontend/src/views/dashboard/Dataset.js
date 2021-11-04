@@ -192,7 +192,7 @@ function Dataset() {
     
     console.log(localStorage.getItem('token'));
 
-    fetch('http://localhost:8000/api/v1/data/userSet/test/', {
+    fetch('/api/v1/data/userSet/test/', {
         method: 'GET',
         headers: {
             Authorization: `Token ${localStorage.getItem('token')}`

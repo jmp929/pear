@@ -11,7 +11,7 @@ function Navbarr() {
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
-        window.location.replace('http://localhost:3000/');
+        window.location.replace('/');
         } else {
         setLoading(false);
         }
@@ -20,7 +20,7 @@ function Navbarr() {
     const handleLogout = e => {
         e.preventDefault();
 
-        fetch('http://127.0.0.1:8000/api/v1/users/auth/logout/', {
+        fetch('/api/v1/users/auth/logout/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ function Navbarr() {
         .then(data => {
             console.log(data);
             localStorage.clear();
-            window.location.replace('http://localhost:3000/');
+            window.location.replace('/');
         });
     };
     

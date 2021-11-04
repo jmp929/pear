@@ -16,7 +16,7 @@ const Login = () => {
   
     useEffect(() => {
       if (localStorage.getItem('token') !== null) {
-        window.location.replace('http://localhost:3000/home');
+        window.location.replace('/home');
       } else {
         setLoading(false);
       }
@@ -30,7 +30,7 @@ const Login = () => {
         password: password
       };
   
-      fetch('http://localhost:8000/api/v1/users/auth/login/', {
+      fetch('/api/v1/users/auth/login/', {
         method: 'POST',
         headers: {
             Accept : 'application/json',
@@ -43,7 +43,7 @@ const Login = () => {
           if (data.key) {
             localStorage.clear();
             localStorage.setItem('token', data.key);
-            window.location.replace('http://localhost:3000/home');
+            window.location.replace('/home');
           } else {
             setEmail('');
             setPassword('');

@@ -29,7 +29,7 @@ function Home(buttonClicked) {
         }
     ]
 
-    fetch('http://localhost:8000/api/v1/data/userSets/', {
+    fetch('/api/v1/data/userSets/', {
         method: 'GET',
         headers: {
             Authorization: `Token ${localStorage.getItem('token')}`
@@ -54,7 +54,7 @@ function Home(buttonClicked) {
                         <td>
                                             <a href="/dataset" onClick={}>View Data</a>
                                         </td>`;
-                    //window.location.replace('http://localhost:3000/home');
+                    //window.location.replace('/home');
         }
         });
 
