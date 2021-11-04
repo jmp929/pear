@@ -113,8 +113,8 @@ DATABASES = {
         'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
         'USER': os.getenv('DATABASE_USER', 'django'),
         'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '127.0.0.1'), #172.30.186.143
-        'PORT': os.getenv('DJANGO_DB_PORT', '15432'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
 
