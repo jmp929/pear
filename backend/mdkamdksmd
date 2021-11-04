@@ -1,0 +1,171 @@
+[33mcommit e5b27a136544f5241532bcda7962ddf0548235f8[m[33m ([m[1;36mHEAD -> [m[1;32msam[m[33m)[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 21:47:03 2021 -0400
+
+    features
+
+[33mcommit 2a8fad509127bccbc16206aab08e6caf5718473b[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 21:25:23 2021 -0400
+
+    disable node_modules cache
+
+[33mcommit 408f1d950a6caab99f71f95a6704d22c21318af1[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 21:09:46 2021 -0400
+
+    heroku
+
+[33mcommit ef8a053376c2b7a42a556728528ce5b6c680a195[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 21:03:20 2021 -0400
+
+    heroku
+
+[33mcommit 589f7d2c332143f66c3827ada2fa1fead3162ab4[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:53:15 2021 -0400
+
+    heroku
+
+[33mcommit 085dbab6a5abb23047a957f5a8736095fbd9bdc2[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:48:30 2021 -0400
+
+    heroku
+
+[33mcommit dc0265b03c7a78878daf753da9f15cb110c68930[m[33m ([m[1;31mheroku/master[m[33m)[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:38:59 2021 -0400
+
+    heroku
+
+[33mcommit a40d0364efcc6061bace903fb0c63df44404f7fd[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:35:48 2021 -0400
+
+    heroku
+
+[33mcommit f5b385f33ccc19b817aa90fdc9265face88cb26f[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:34:13 2021 -0400
+
+    heroku
+
+[33mcommit 5b0c91ad74793b78839cf749dfa5e58505e4f7f1[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:29:31 2021 -0400
+
+    heroku
+
+[33mcommit f6ba847c0d4ef2610ee21e0e53fa5ca943cb12d7[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:25:55 2021 -0400
+
+    heroku
+
+[33mcommit ad6d12a43f2fb5eb2545828d247eba5f79a87751[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:23:01 2021 -0400
+
+    heroku
+
+[33mcommit 3ce932ca16244fac109d08c1df2ca1b08b449596[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:17:59 2021 -0400
+
+    heroku
+
+[33mcommit 657f119c2bcba13fe4cfb0118d3c89473ec2a732[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:15:04 2021 -0400
+
+    heroku
+
+[33mcommit b500916e1562f0be33722decb6967e00e1a6a626[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 20:10:53 2021 -0400
+
+    heroku
+
+[33mcommit 56b6d0f2bd81524ba098e2d644e84736ce81ad77[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 19:59:03 2021 -0400
+
+    heroku
+
+[33mcommit 8cf4980a98d3675592a932f0ee18343db8e7e8e8[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 19:55:40 2021 -0400
+
+    heroku
+
+[33mcommit 55b581ead8cc7083002d8778ec3c1825ec3f5a50[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 19:35:35 2021 -0400
+
+    HTTP Requests
+
+[33mcommit e681d5a84104fe97aae1d55b1a77fd4c1cfe87e5[m[33m ([m[1;31morigin/sam[m[33m)[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 09:00:13 2021 -0400
+
+    http request
+
+[33mcommit ec17c772835a638612be5574ff9f6b9f5f9eb459[m
+Merge: c14c5ac 3b6c737
+Author: Sam Lempp <46655155+samlempp@users.noreply.github.com>
+Date:   Mon Oct 18 00:32:54 2021 -0400
+
+    Merge pull request #1 from jmp929/Davidd
+    
+    Davidd
+
+[33mcommit 3b6c737629e595fcbefe56681ed576b6451cd97b[m[33m ([m[1;31morigin/Davidd[m[33m)[m
+Merge: fa85aa8 c14c5ac
+Author: Sam Lempp <46655155+samlempp@users.noreply.github.com>
+Date:   Mon Oct 18 00:32:38 2021 -0400
+
+    Merge branch 'sam' into Davidd
+
+[33mcommit c14c5ac3181bdb1f76daa92fc5266595545c02d8[m
+Author: Sam Lempp <slempp@live.unc.edu>
+Date:   Mon Oct 18 00:29:46 2021 -0400
+
+    merging
+
+[33mcommit fa85aa8cf6a4c43d77a0741f141aaecb387f481f[m
+Author: David Lundberg <davidlundberg99@gmail.com>
+Date:   Sun Oct 17 13:20:20 2021 -0400
+
+    FrontEnd UI
+
+[33mcommit 395bcac0748c98713065c92ea039c0a9396d32ad[m[33m ([m[1;31morigin/josh[m[33m, [m[1;32mjosh[m[33m)[m
+Author: joshuaparker99 <77903425+joshuaparker99@users.noreply.github.com>
+Date:   Sat Oct 16 17:55:29 2021 -0400
+
+    Added API functionality
+
+[33mcommit 2979c9dea2e1b7eada2f4864cad5a2388f26dc45[m
+Author: joshuaparker99 <77903425+joshuaparker99@users.noreply.github.com>
+Date:   Fri Oct 15 14:49:10 2021 -0400
+
+    Added APIs
+
+[33mcommit cd7481c278d188134a08e7b5593bc8472d0b171c[m[33m ([m[1;31morigin/David[m[33m)[m
+Author: David Lundberg <davidlundberg99@gmail.com>
+Date:   Tue Oct 12 13:56:51 2021 -0400
+
+    Login React Frontend page first commit
+
+[33mcommit fb0fb18b3cc743b9ed06f15f720966192c36720e[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmain[m[33m)[m
+Author: joshuaparker99 <77903425+joshuaparker99@users.noreply.github.com>
+Date:   Wed Oct 6 10:51:56 2021 -0400
+
+    settings configured
+
+[33mcommit a059c8f4a44040cf75aa55940c2fc90a54ac7c15[m
+Author: joshuaparker99 <77903425+joshuaparker99@users.noreply.github.com>
+Date:   Thu Sep 30 17:46:01 2021 -0400
+
+    inital commit
