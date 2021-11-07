@@ -57,10 +57,18 @@ INSTALLED_APPS = [
     'rest_auth.registration', # new
     'corsheaders', # new
     'magic',
+    'django_nose',
 
     # local apps
     'dashboard',
     'users'
+]
+
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=dashboard,users',
 ]
 
 MIDDLEWARE = [
