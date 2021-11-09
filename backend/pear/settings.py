@@ -18,6 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SETTINGS_PATH = Path(__file__).resolve().parent
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -30,7 +31,7 @@ SECRET_KEY = os.getenv(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -57,19 +58,13 @@ INSTALLED_APPS = [
     'rest_auth.registration', # new
     'corsheaders', # new
     'magic',
-    'django_nose',
 
     # local apps
     'dashboard',
     'users'
 ]
 
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
-NOSE_ARGS = [
-    '--with-coverage',
-    '--cover-package=dashboard,users',
-]
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -117,10 +112,14 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        'USER': os.getenv('DATABASE_USER', 'django'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        # 'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        # 'USER': os.getenv('DATABASE_USER', 'django'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
+        'USER': os.getenv('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
