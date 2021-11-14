@@ -13,7 +13,7 @@ Running this application should be very simple if everything up to this point ha
 These instructions were last tested 11/12/21 by all members of our team, David Lundberg, Sam Lempp, and Joshua Parker, all on a linux operating system
 
 ## Testing
-For running tests, on the backend, Django makes this very easy. All of the test are located in the test.py files in the applications of the project. In order to run these tests, all one needs to do is run `python manage.py test` and that will kick off all tests located within this files. For testing the frontend, …
+For running tests, on the backend, Django makes this very easy. All of the test are located in the test.py files in the applications of the project. In order to run these tests, all one needs to do is run `python manage.py test` and that will kick off all tests located within this files. Testing on the frontend was done with using Jest, a JavaScript test runner that works via jsdom, and also React's set of testing helpers called React Testing Library. In order to run the tests, one will input the command `npm run test`. If one is seeking the full coverage report regarding the frontend then one will simply run the command `jest --coverage`.
 
 ## Deployment
 
