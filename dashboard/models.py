@@ -25,7 +25,11 @@ class SetToUser(models.Model):
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['dataset', 'user'], name="unique_dataset_for_user")
+            models.UniqueConstraint(fields=['dataset', 'user'], name="unique_dataset_for_user"),
+            models.CheckConstraint(
+                check=models.Q(can_admin=True) | models.Q(can_write=True) | models.Q(can_read=True),
+                name="at_least_one_permission"
+            )
         ]
 
 
