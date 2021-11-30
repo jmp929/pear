@@ -25,7 +25,7 @@ function Login({Login, error, buttonClicked}) {
 
     return (
         <Container>
-                <Card className="login-card">
+                <Card className="login-card shadow-lg">
                 <Card.Body>
                     <form onSubmit={submitHandler}>
                         <img className="logo" src={Logo} alt="Pear Logo"/>
@@ -33,16 +33,16 @@ function Login({Login, error, buttonClicked}) {
                         <p className="login-title subtitle font">A one stop shop for you and your data pairs</p>
                         <div className="login-inputs ">
                             <div className="form-group">
-                                <input type="email" className="form-control login-credentials" placeholder="Email Address" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
+                                <input type="email" className="form-control login-credentials shadow" placeholder="Email Address" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
                             </div>
 
                             <div className="form-group">
-                                <input type="password" className="form-control login-credentials" placeholder="Password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
+                                <input type="password" className="form-control login-credentials shadow" placeholder="Password" onChange={e => setDetails({...details, password: e.target.value})} value={details.password}/>
                             </div>
                         </div>
-                        <button className="btn login-btn btn-lg btn-block" onClick={(() => path.push('/home'))}>Log In</button>
+                        <button className="btn login-btn btn-lg btn-block shadow" onClick={(() => path.push('/home'))}>Log In</button>
                         <p className="need-account font">Don't have an account?</p>
-                        <button type="submit" className="btn btn-create btn-lg btn-block" onClick={buttonClicked}>Create Account</button>
+                        <button type="submit" className="btn btn-create btn-lg btn-block shadow" onClick={buttonClicked}>Create Account</button>
                         <p className="forgot-password text-right">
                             Forgot <a href="#">password?</a>
                         </p>

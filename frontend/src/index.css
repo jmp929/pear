@@ -10,7 +10,7 @@
     padding: 10px;
 }
 
-.navbar {
+.navbarr {
     content: '';
     /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
     background-color: #38A3A5;
@@ -51,18 +51,25 @@
     font-family: 'Times New Roman', Times, serif;
 }
 
+
 .modal-header-footer {
     background-color: #38A3A5;
 }
 
-.modal-body {
+/* .modal-body {
     background-color: #C7F9CC;
-}
+} */
 
-.modal-title {
+.m-title {
     color: white;
     margin-left: 160px;
 }
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+  }
 
 .modal-btn {
     margin: auto;
@@ -156,3 +163,48 @@
 .btn-add-row {
     background-color: lightgray;
 }
+
+.header {
+    background-color: #C7F9CC;
+    
+}
+
+.header-logo {
+    max-width: 20%;
+    height: auto;
+}
+
+#showcase {
+    /* background-color: #baf7c0; */
+    /* background-color: #C7F9CC; */
+    background-image: linear-gradient(to bottom right, #72cf9c, #C7F9CC);
+    padding-top: 100px;
+    padding-bottom: 100px;
+    padding: auto;
+}
+
+.header-create-btn {
+    background-color: #C7F9CC;
+}
+
+.header-info-container {
+    background-color: #F2F4F4;
+}
+
+.create-account-card {
+    /* background-color: #E5E8E8 ; */
+    background-color: #F2F4F4;
+}
+
+.header-info-font {
+    font-size: large;
+}
+
+/* .token-btn {
+    position: absolute;
+    background-color: #57CC99;
+    right: 60px;
+    width: 135px;
+    margin-right: 10px;
+} */
+

@@ -34,7 +34,7 @@ function Home(buttonClicked) {
                 </Col>
             </Row>
             <Row>
-                <Table className="table" hover bordered>
+                <Table className="table shadow-lg" hover bordered>
                     <thead className="table-header-footer">
                         <tr>
                             <th className="font-color-white weight-light">Name</th>

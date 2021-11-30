@@ -5,12 +5,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './views/auth/Login.js' ;
 import Signup from './views/auth/Signup';
 import Navbarr from './components/layout/Navbarr';
+import HeaderNavbar from "./components/layout/HeaderNavbar";
 import Home from './views/dashboard/Home';
 import Upload from './views/dashboard/Upload';
 import Dataset from "./views/dashboard/Dataset";
 import AddData from './views/dashboard/AddData';
 import React, { useState} from 'react';
 import { Button } from 'bootstrap';
+import Header from "./views/landing/Header";
+import TokenModal from "./views/auth/TokenModal";
  
 
 
@@ -30,6 +33,12 @@ function App() {
   const [showUploadModal, setShowUploadModal] = useState(false);
   const addDataHandler = () => {
     setShowUploadModal((showUploadModal) => showUploadModal = !showUploadModal);
+  }
+
+  //Show Token Modal 
+  const [showTokenModal, setShowTokenModal] = useState(false);
+  const tokenHandler = () => {
+    setShowTokenModal((showTokenModal) => showTokenModal = !showTokenModal);
   }
 
   // Handle adding rows to addData
@@ -64,20 +73,27 @@ function App() {
       <Router>
         <Switch>
           <Route exact path="/">
+            <HeaderNavbar />
+            <Header />
+          </Route>
+          <Route exact path="/login">
             <Login Login={Login_details} error={error} buttonClicked={signUpHandler}/>
             <Signup show={showState} buttonClicked={signUpHandler}/>
           </Route>
           <Route exact path="/home">
-            <Navbarr />
+            <Navbarr buttonClicked={tokenHandler}/>
             <Home buttonClicked={addDataHandler}/>
             <Upload show={showUploadModal} buttonClicked={addDataHandler} />
+            <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
           </Route>
           <Route exact path="/dataset">
-            <Navbarr />
+            <Navbarr buttonClicked={tokenHandler}/>
+            <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
             <Dataset />
           </Route>
           <Route exact path="/add">
-            <Navbarr />
+            <Navbarr buttonClicked={tokenHandler}/>
+            <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
             <AddData />
           </Route>
         </Switch>

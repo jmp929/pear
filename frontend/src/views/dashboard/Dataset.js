@@ -36,7 +36,7 @@ function Dataset() {
                     <h1 className="welcome font pt-3 pb-2">Zip Code to Congressional District</h1>
                 </Col>
                 <Col>
-                    <Button variant="danger"  size="lg" className="mt-2 weight-light">Delete Dataset</Button>
+                    <Button variant="danger"  size="lg" className="mt-2 shadow-sm weight-light">Delete Dataset</Button>
                 </Col>
             </Row>
             <Row>
@@ -45,7 +45,7 @@ function Dataset() {
                 </Col>
                 <Col md={{span:2}}>
                         <Form>
-                            <Form.Control type="search"></Form.Control>
+                            <Form.Control className="shadow-sm" type="search"></Form.Control>
                         </Form>
                 </Col>
             </Row>
@@ -56,7 +56,7 @@ function Dataset() {
                     </Col>
                     <Col md={1}>
                         <Form>
-                            <Form.Select>
+                            <Form.Select className="shadow-sm">
                                 <option></option>
                                 <option value="10"></option>
                                 <option value="20"></option>
@@ -98,17 +98,17 @@ function Dataset() {
                                 <th colSpan="3">
                                 <Row>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Add New Entry</button>
+                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Add New Entry</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Bulk Add</button>
+                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Bulk Add</button>
                                     </Col>
                                     <Col></Col> 
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Previous</button>
+                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Previous</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Next</button>
+                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Next</button>
                                     </Col>
                                 </Row>                      
                                 </th>    

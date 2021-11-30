@@ -35,7 +35,7 @@ function AddData() {
             </Row>
             <Container>
                 <Row>
-                    <Table className="table"  bordered responsive="sm">
+                    <Table className="table shadow-lg"  bordered responsive="sm">
                         <thead className="table-header-footer">
                             <tr>
                                 <th className="font-color-white weight-light">Key</th>
@@ -73,10 +73,10 @@ function AddData() {
                                 <th colSpan="3">
                                 <Row>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-create btn-block weight-light'>Upload Data</button>
+                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Upload Data</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn btn-add-row btn-block weight-light' >Add Row</button>
+                                        <button type="submit" className='btn shadow-sm btn-add-row shadow-sm btn-block weight-light' >Add Row</button>
                                     </Col>
                                     <Col></Col>
                                 </Row>                      
