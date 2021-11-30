@@ -10,7 +10,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.authentication import (
     BasicAuthentication, 
-    TokenAuthentication
+    SessionAuthentication
 )
 from django.db import transaction
 
@@ -35,13 +35,14 @@ from .custom_modules.validators import (
     FileValidator
 )
 from .data_interactions.ingestion import IngestData
+from users.authentication import TimeLimitTokenAuthentication
 
         
 class DataPairSurveyView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'dataset']
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [TimeLimitTokenAuthentication]
 
 
 class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
@@ -49,7 +50,7 @@ class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
     # serializer_class = DataSetSerializer
     lookup_fields = ['dataset']
     permission_classes = [IsAuthenticated]
-    authentication_classes = [TokenAuthentication, BasicAuthentication]
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
@@ -82,7 +83,7 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
 
     def patch(self, request, *args, **kwargs):
         if 'key' and 'value' in request.data:
@@ -108,7 +109,7 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     # lookup_fields = []
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [BasicAuthentication, SessionAuthentication]
 
     def list(self, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())

@@ -16,8 +16,8 @@ class FileUploadSerializer(serializers.Serializer):
 
 
 class DataSetSerializer(GetRelatedMixin, serializers.ModelSerializer):
-    # prefetch_related_fields = ['users']
-    # users = UserSerializer(many=True)
+    prefetch_related_fields = ['users']
+    users = UserSerializer(many=True)
 
     class Meta:
         model = Dataset
