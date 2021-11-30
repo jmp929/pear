@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 function Home(buttonClicked) {
   const path = useHistory();
 
-  const [load, isLoaded] = useState(false);
+  const [isLoaded, load] = useState(false);
   
 
   var Datasets = [];
