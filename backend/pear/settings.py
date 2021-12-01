@@ -33,6 +33,7 @@ SECRET_KEY = os.getenv(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+ALLOWED_CORS_ORIGINS = ['*']
 ALLOWED_HOSTS = ['*']
 
 
@@ -112,14 +113,14 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        'USER': os.getenv('DATABASE_USER', 'django'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        # 'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        # 'USER': os.getenv('DATABASE_USER', 'postgres'),
-        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        # 'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
+        # 'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        # 'USER': os.getenv('DATABASE_USER', 'django'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
+        'USER': os.getenv('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }

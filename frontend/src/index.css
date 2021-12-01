@@ -2,7 +2,7 @@
 .login-card {
     content: '';
     /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
-    background-color: white;
+    background-color: #C7F9CC;
     margin: auto;
     margin-top: 50px;
     height: 671px;
@@ -48,7 +48,7 @@
 
 .font {
     color: #22577A;
-    font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
 }
 
 .modal-header-footer {
@@ -74,7 +74,7 @@
 }
 
 .forgot-password {
-    font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
     margin-top: 20px;
 }
 
@@ -89,7 +89,7 @@
 
 .navbar-title {
     color: white;
-    font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
     font-size: 40px;
     margin-left: 20px;
 }

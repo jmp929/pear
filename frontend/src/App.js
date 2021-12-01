@@ -1,5 +1,5 @@
 // import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Logout from './views/auth/Logout'
@@ -60,6 +60,14 @@ function App() {
   const Logout = () => {
     setUser({name: "", email: ""});
   }
+
+  // const isLogged = !!localStorage.getItem("token")
+
+  // if(!isLogged) {
+  //     return (
+  //       <Redirect to="/" />
+  //     )
+  // }
 
   return (
     <div className="App">

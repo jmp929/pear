@@ -23,8 +23,8 @@ urlpatterns = [
     path('api/v1/data/', include('dashboard.urls'))
 ]
 
-# if settings.DEBUG:
-#     import debug_toolbar
-#     urlpatterns = [
-#         path('__debug__/', include(debug_toolbar.urls)),
-#     ] + urlpatterns
+if settings.DEBUG:
+    import debug_toolbar
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

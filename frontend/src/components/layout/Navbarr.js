@@ -20,7 +20,7 @@ function Navbarr() {
     const handleLogout = e => {
         e.preventDefault();
 
-        fetch('http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/logout/', {
+        fetch('http://localhost:8000/api/v1/users/auth/logout/', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

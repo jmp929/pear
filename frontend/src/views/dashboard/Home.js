@@ -9,35 +9,48 @@ import { useHistory } from "react-router-dom";
 function Home(buttonClicked) {
   const path = useHistory();
 
-  const [isLoaded, load] = useState(false);
-  
+  const [datasets, setDatasets] = useState([]);
 
-  var Datasets = [];
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(
-      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSets/",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Token ${localStorage.getItem("token")}`,
-        },
-      }
-    )
+    setLoading(true);
+    let size = 0;
+    fetch("http://localhost:8000/api/v1/data/userSets/", {
+      method: "GET",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => {
-        for (const row of data) {
-          Datasets.push({
-            Name: row.name,
-            Size: 700000,
-            Date_Uploaded: "08-10-2019",
-            Last_Queried: "09-10-2021",
-            id: row.id,
-          });
-        }
-        load(true)
+        setDatasets(
+          data.map((row) => {
+            fetch(
+              "http://localhost:8000/api/v1/data/userSet/" + row.name + "/",
+              {
+                method: "GET",
+                headers: {
+                  Authorization: `Token ${localStorage.getItem("token")}`,
+                },
+              }
+            )
+              .then((res) => (res = res.json()))
+              .then((data) => {
+                size = data.data_pairs.length;
+              });
+            return {
+              Name: row.name,
+              Size: size,
+              Date_Uploaded: "08-10-2019",
+              Last_Queried: "09-10-2021",
+              id: row.id,
+            };
+          })
+        );
+        setLoading(false);
       });
-  });
+  }, []);
 
   return (
     <Container className="home-container">
@@ -60,29 +73,30 @@ function Home(buttonClicked) {
             </tr>
           </thead>
           <tbody>
-              {
-                  () => {
-                    if(!isLoaded) {
-                        return <tr>Loading...</tr>
-                    } else {
-                            Datasets.map(dataset => {
-                                return(
-                                  <tr>
-                                    <td>{dataset.Name}</td>
-                                    <td>{dataset.Size}</td>
-                                    <td>{dataset.Date_Uploaded}</td>
-                                    <td>{dataset.Last_Queried}</td>
-                                    <td>
-                                      <a href="#" onClick={() => path.push("/dataset")}>
-                                        View Data
-                                      </a>
-                                    </td>
-                                  </tr>
-                                )
-                    })
-                }
+            {
+              loading ? (
+                <tr> Loading... </tr>
+              ) : (
+                datasets.map((dataset) => {
+                  return (
+                    <tr>
+                      <td>{dataset.Name}</td>
+                      <td>{dataset.Size}</td>
+                      <td>{dataset.Date_Uploaded}</td>
+                      <td>{dataset.Last_Queried}</td>
+                      <td>
+                        <a href="#" onClick={() => path.push("/dataset")}>
+                          View Data
+                        </a>
+                      </td>
+                    </tr>
+                  );
+                })
+              )
+              // }
+              // }
             }
-        }
+            {/* </React.Fragment> */}
           </tbody>
           <tfoot className="table-header-footer">
             <tr>

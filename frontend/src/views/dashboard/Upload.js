@@ -29,7 +29,7 @@ function Upload(props) {
             body: requestData
         }
         delete options.headers['Content-Type'];
-        fetch('http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSets/', options)
+        fetch('http://localhost:8000/api/v1/data/userSets/', options)
             .then(res => res.json())
             .then(data => {
                 console.log(data);

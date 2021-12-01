@@ -15,7 +15,7 @@ const Login = () => {
     const [loading, setLoading] = useState(true);
   
     useEffect(() => {
-      if (localStorage.getItem('token') !== null) {
+      if (!!localStorage.getItem('token')) {
         window.location.replace('/home');
       } else {
         setLoading(false);
@@ -30,7 +30,7 @@ const Login = () => {
         password: password
       };
   
-      fetch('http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/login/', {
+      fetch('http://localhost:8000/api/v1/users/auth/login/', {
         method: 'POST',
         headers: {
             Accept : 'application/json',
