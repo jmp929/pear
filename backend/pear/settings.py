@@ -31,7 +31,7 @@ SECRET_KEY = os.getenv(
 )
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_CORS_ORIGINS = ['*']
 ALLOWED_HOSTS = ['*']
@@ -49,22 +49,21 @@ INSTALLED_APPS = [
     'debug_toolbar',
 
     # 3rd party apps
-    'rest_framework', # new
-    'rest_framework.authtoken', # new
-    'rest_auth', # new
-    'django.contrib.sites', # new
-    'allauth', # new
-    'allauth.account', # new
-    'allauth.socialaccount', # new
-    'rest_auth.registration', # new
-    'corsheaders', # new
+    'rest_framework',  # new
+    'rest_framework.authtoken',  # new
+    'rest_auth',  # new
+    'django.contrib.sites',  # new
+    'allauth',  # new
+    'allauth.account',  # new
+    'allauth.socialaccount',  # new
+    'rest_auth.registration',  # new
+    'corsheaders',  # new
     'magic',
 
     # local apps
     'dashboard',
     'users'
 ]
-
 
 
 MIDDLEWARE = [
@@ -83,14 +82,13 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 
-
 ROOT_URLCONF = 'pear.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': ["templates",
-            "dashboard/templates"],
+                 "dashboard/templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -113,15 +111,15 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        # 'USER': os.getenv('DATABASE_USER', 'django'),
-        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        'USER': os.getenv('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
-        'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        'USER': os.getenv('DATABASE_USER', 'django'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        # 'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
+        # 'USER': os.getenv('DATABASE_USER', 'postgres'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        # 'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
+        # 'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
 
@@ -160,12 +158,12 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 
-REST_FRAMEWORK = {    
+REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',   
+        'rest_framework.authentication.SessionAuthentication',
     ],
     # 'DEFAULT_PERMISSION_CLASSES': [
     #     'rest_framework.permissions.IsAuthenticated',

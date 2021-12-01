@@ -22,7 +22,7 @@ function Dataset(props) {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:8000/api/v1/data/userSet/${localStorage.getItem(
+      `http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSet/${localStorage.getItem(
         "dataset"
       )}/`,
       {

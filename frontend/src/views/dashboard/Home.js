@@ -14,7 +14,7 @@ function Home(buttonClicked) {
   const [loading, setLoading] = useState(false);
 
   //   function getDataSetLength(name) {
-  //     fetch("http://localhost:8000/api/v1/data/userSet/" + name + "/", {
+  //     fetch("http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSet/" + name + "/", {
   //       method: "GET",
   //       headers: {
   //         Authorization: `Token ${localStorage.getItem("token")}`,
@@ -29,12 +29,15 @@ function Home(buttonClicked) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:8000/api/v1/data/userSets/", {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSets/",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setDatasets(
