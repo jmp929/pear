@@ -24,7 +24,7 @@ function Header() {
                 <Row>
                     <Col className="p-4 header-info-container">
                         <Row>
-                            <h1 className="display-4">Optimize Your Survey Research</h1>
+                            <h1 className="display-6">Optimize Your Survey Research</h1>
                         </Row>
                         <Row className="p-4">
                             <li className="header-info-font">Pear allows researchers to dynamically return calues to the survey participant based on their inputs.</li>
@@ -36,7 +36,7 @@ function Header() {
                             <li className="header-info-font">Pear will then retrieve the value from the specified dataset. </li>
                         </Row>
                         <Row className="p-4">
-                            <h1 className="display-4">The Best Part?</h1>
+                            <h1 className="display-6">The Best Part?</h1>
                         </Row>
                         <Row className="p-2">
                             <li className="header-info-font">These requests are automatically processed when the participant enters an input into the specified field!</li>

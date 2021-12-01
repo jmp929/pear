@@ -29,8 +29,8 @@ function Login({Login, error, buttonClicked}) {
                 <Card.Body>
                     <form onSubmit={submitHandler}>
                         <img className="logo" src={Logo} alt="Pear Logo"/>
-                        <h1 className="login-title font">Pear</h1>
-                        <p className="login-title subtitle font">A one stop shop for you and your data pairs</p>
+                        <h1 className="login-title display-6">Pear</h1>
+                        <p className="login-title">A one stop shop for you and your data pairs</p>
                         <div className="login-inputs ">
                             <div className="form-group">
                                 <input type="email" className="form-control login-credentials shadow" placeholder="Email Address" onChange={e => setDetails({...details, email: e.target.value})} value={details.email}/>
@@ -41,10 +41,10 @@ function Login({Login, error, buttonClicked}) {
                             </div>
                         </div>
                         <button className="btn login-btn btn-lg btn-block shadow" onClick={(() => path.push('/home'))}>Log In</button>
-                        <p className="need-account font">Don't have an account?</p>
+                        <p className="need-account">Don't have an account?</p>
                         <button type="submit" className="btn btn-create btn-lg btn-block shadow" onClick={buttonClicked}>Create Account</button>
-                        <p className="forgot-password text-right">
-                            Forgot <a href="#">password?</a>
+                        <p className="mt-3 text-right">
+                            <a href="#">Forgot password?</a>
                         </p>
                     </form>
                 </Card.Body>

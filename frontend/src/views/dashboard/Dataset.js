@@ -29,11 +29,8 @@ function Dataset() {
     return (
         <div>
             <Row>
-                <Col md={2}>
-                        <p className="back-to-home font pt-3 pb-2 fs-4" onClick={() => path.push('/home')}><u>Back to Home</u></p>
-                </Col>
                 <Col md={8}>
-                    <h1 className="welcome font pt-3 pb-2">Zip Code to Congressional District</h1>
+                    <h1 className="display-6 pe-5 pt-3 pb-2">Zip Code to Congressional District</h1>
                 </Col>
                 <Col>
                     <Button variant="danger"  size="lg" className="mt-2 shadow-sm weight-light">Delete Dataset</Button>
@@ -41,7 +38,7 @@ function Dataset() {
             </Row>
             <Row>
                 <Col md={{span:1, offset:8}}>
-                    <p className="font fs-3">Search:</p>
+                    <p className="fs-4">Search:</p>
                 </Col>
                 <Col md={{span:2}}>
                         <Form>
@@ -52,7 +49,7 @@ function Dataset() {
             <Container className="home-container">
                 <Row md={6}>
                     <Col md={1}>
-                        <p className="font fs-5">show</p>
+                        <p className="fs-5">show</p>
                     </Col>
                     <Col md={1}>
                         <Form>
@@ -64,7 +61,7 @@ function Dataset() {
                         </Form>
                     </Col>
                     <Col md={1}>
-                        <p className="font fs-5">Entries</p>
+                        <p className="fs-5">Entries</p>
                     </Col>
                 </Row>
                 <Row>

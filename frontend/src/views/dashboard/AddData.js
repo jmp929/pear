@@ -24,13 +24,8 @@ function AddData() {
     return (
         <div>
             <Row>
-                <Col md={2}>
-                    <p className="back-to-home font pt-3 pb-2 fs-4" onClick={() => path.push('/home')}><u>Back to Home</u></p>
-                </Col>
-            </Row>
-            <Row>
                 <Col>
-                <p className="add-data-title font pt-3 pb-2"><u>Add Data</u></p>
+                <p className="display-4 pt-3 pb-3"><u>Add Data</u></p>
                 </Col>
             </Row>
             <Container>
@@ -50,17 +45,17 @@ function AddData() {
                                         <tr>
                                             <td>
                                                 <Form>
-                                                    <Form.Control type="key" placeholder={entry.Key}></Form.Control>
+                                                    <Form.Control type="key" className="shadow-sm" placeholder={entry.Key}></Form.Control>
                                                 </Form>
                                             </td>
                                             <td>
                                                 <Form>
-                                                    <Form.Control type="key"></Form.Control>
+                                                    <Form.Control className="shadow-sm" type="key"></Form.Control>
                                                 </Form>
                                             </td>
                                             <td>
                                                 <Form>
-                                                    <Form.Control type="key"></Form.Control>
+                                                    <Form.Control className="shadow-sm" type="key"></Form.Control>
                                                 </Form>
                                             </td>
                                         </tr>
@@ -73,10 +68,10 @@ function AddData() {
                                 <th colSpan="3">
                                 <Row>
                                     <Col md="auto">
-                                        <button type="submit" className='btn shadow-sm btn-create btn-block weight-light'>Upload Data</button>
+                                        <button type="submit" className='btn shadow btn-create btn-block weight-light'>Upload Data</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn shadow-sm btn-add-row shadow-sm btn-block weight-light' >Add Row</button>
+                                        <button type="submit" className='btn shadow btn-add-row shadow-sm btn-block weight-light' >Add Row</button>
                                     </Col>
                                     <Col></Col>
                                 </Row>                      

@@ -30,7 +30,7 @@ function Home(buttonClicked) {
         <Container className="home-container">
             <Row>
                 <Col md={4}>
-                    <h1 className="welcome font pt-3 pb-2">Welcome to Pear</h1>
+                    <h1 className="welcome display-5 pt-3 pb-3">Welcome to Pear</h1>
                 </Col>
             </Row>
             <Row>
@@ -65,7 +65,7 @@ function Home(buttonClicked) {
                         <tr>
                             <th colSpan="5">
                                 <Col md={4}>
-                                    <button type="submit" className='btn btn-create btn-block weight-light' onClick={(() => path.push('/add'))}>Add New Data Set Here</button>
+                                    <button type="submit" className='btn btn-create shadow btn-block weight-light' onClick={(() => path.push('/add'))}>Add New Data Set Here</button>
                                 </Col>                            
                             </th>    
                         </tr>

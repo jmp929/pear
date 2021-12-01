@@ -1,8 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
 .login-card {
     content: '';
-    /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
-    background-color: #C7F9CC;
+    background-image: linear-gradient(to bottom right, #72cf9c, #C7F9CC);
+    /* background-color: #C7F9CC; */
     margin: auto;
     margin-top: 50px;
     height: 671px;
@@ -96,9 +96,9 @@
 
 .navbar-title {
     color: white;
-    font-family: 'Times New Roman', Times, serif;
+    /* font-family: 'Times New Roman', Times, serif;
     font-size: 40px;
-    margin-left: 20px;
+    margin-left: 20px; */
 }
 .navbar {
     box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
@@ -200,11 +200,19 @@
     font-size: large;
 }
 
-/* .token-btn {
+.token-btn {
     position: absolute;
     background-color: #57CC99;
-    right: 60px;
+    right: 225px;
     width: 135px;
     margin-right: 10px;
-} */
+}
+
+.home-btn {
+    position: absolute;
+    background-color: #57CC99;
+    right: 385px;
+    width: 135px;
+    margin-right: 10px;
+}
 

@@ -3,19 +3,19 @@ import { Modal, Row, Col } from 'react-bootstrap';
 import '/Users/davidlundberg/pear/frontend/src/index.css';
 
 function TokenModal(props) {
-    const [show, setShow] = useState(true);
+    const [show, setShow] = useState(false);
 
     return (
         <div>
             <Modal show={props.show}>
-                <Modal.Header classname="light">
-                    <Modal.Title className="">Your Token</Modal.Title>
+                <Modal.Header className="bg-light" >
+                    <Modal.Title className="display-5 mx-auto">Your Token</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
-                    <h1 className="display-6 center">Token</h1>
+                <Modal.Body className="mx-auto">
+                    <h1 className="fs-2 fw-light">Token</h1>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="modal-btn btn login-btn btn-lg btn-block" type="submit "variant="primary" onClick={props.buttonClicked}>Close</button>
+                    <button className="modal-btn btn shadow-sm login-btn btn-lg btn-block" type="submit "variant="primary" onClick={props.buttonClicked}>Close</button>
                 </Modal.Footer>
             </Modal>
         </div>
