@@ -21,6 +21,11 @@ from rest_framework.authentication import (
 from .serializers import UserSerializer, TokenSerializer
 from .models import CustomUser
 
+class UserListView(ListCreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    # permission_classes = [IsAdminUser,]
+
 class TokenView(RetrieveDestroyAPIView, CreateModelMixin):
     queryset = Token.objects.all()
     serializer_class = TokenSerializer

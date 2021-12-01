@@ -10,7 +10,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.authentication import (
     BasicAuthentication,
-    TokenAuthentication
+    TokenAuthentication,
+    SessionAuthentication
 )
 from django.db import transaction
 
@@ -52,7 +53,8 @@ class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
     # serializer_class = DataSetSerializer
     lookup_fields = ['dataset']
     permission_classes = [IsAuthenticated]
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    # authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
@@ -84,7 +86,8 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    # authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
 
     def patch(self, request, *args, **kwargs):
         if 'key' and 'value' in request.data:
@@ -97,35 +100,20 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
         return DataPair.objects.all()
         # return self.get_serializer_class().get_related(queryset)
 
-<<<<<<< HEAD:dashboard/views.py
 
 
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
-=======
-    # def check_object_permissions(self, request, obj):
-    #     if request.method not in SAFE_METHODS:
-    #         permitted_user = DataPair.objects.filter(id__contains=obj.id).select_related('dataset').prefetch_related('dataset__users').values('dataset__users__setToUser__can_write')
-    #         return permitted_user
-    #     else:
-    #         return True
-
-
->>>>>>> 279c839e44caa07981830d84220fe642c17c25cd:backend/dashboard/views.py
 class UserDataSetView(UsersDataPermission, generics.ListAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     # lookup_fields = []
-<<<<<<< HEAD:dashboard/views.py
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
-=======
-    authentication_classes = [BasicAuthentication]
->>>>>>> 279c839e44caa07981830d84220fe642c17c25cd:backend/dashboard/views.py
+    # authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = [TokenAuthentication, BasicAuthentication]
 
     def list(self, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         dataset = self.get_dataset()
-<<<<<<< HEAD:dashboard/views.py
         permission_level = get_dataset_permission_level(self.request)
         objs = {
             'dataset': json.dumps(dataset, indent=4, sort_keys=True, default=str),
@@ -135,12 +123,6 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
         if permission_level == "ADMIN":
             other_users = self.get_other_users()
             objs["other_users"] = json.dumps(other_users, indent=4, sort_keys=True, default=str)
-=======
-        objs = {
-            'dataset': json.dumps(dataset, indent=4, sort_keys=True, default=str),
-            'data_pairs': serializer.data
-        }
->>>>>>> 279c839e44caa07981830d84220fe642c17c25cd:backend/dashboard/views.py
         return Response(objs)
 
     def get_dataset(self):
@@ -148,7 +130,6 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
         dataset = Dataset.objects.filter(name=dataset_name).values()[0]
         return dataset
 
-<<<<<<< HEAD:dashboard/views.py
     
     def get_other_users(self):
         dataset_name = self.kwargs['dataset_name']
@@ -223,13 +204,6 @@ def get_dataset_permission_level(request):
             return "READ"
         else:
             return None
-=======
-    def get_queryset(self):
-        dataset_name = self.kwargs['dataset_name']
-        dataset = Dataset.objects.filter(name=dataset_name)[0]
-        data_pairs = DataPair.objects.filter(dataset=dataset)
-        return data_pairs
->>>>>>> 279c839e44caa07981830d84220fe642c17c25cd:backend/dashboard/views.py
 
 
 

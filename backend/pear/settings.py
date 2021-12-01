@@ -117,9 +117,9 @@ DATABASES = {
         # 'USER': os.getenv('DATABASE_USER', 'django'),
         # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
         # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        'USER': os.getenv('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'pear_dev'),
+        'USER': os.getenv('DATABASE_USER', 'davidlundberg'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'Rocker99'),
         'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
