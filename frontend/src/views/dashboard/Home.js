@@ -13,9 +13,22 @@ function Home(buttonClicked) {
 
   const [loading, setLoading] = useState(false);
 
+  //   function getDataSetLength(name) {
+  //     fetch("http://localhost:8000/api/v1/data/userSet/" + name + "/", {
+  //       method: "GET",
+  //       headers: {
+  //         Authorization: `Token ${localStorage.getItem("token")}`,
+  //       },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         length = data.data_pairs.length;
+  //       });
+  //     return length;
+  //   }
+
   useEffect(() => {
     setLoading(true);
-    let size = 0;
     fetch("http://localhost:8000/api/v1/data/userSets/", {
       method: "GET",
       headers: {
@@ -26,22 +39,9 @@ function Home(buttonClicked) {
       .then((data) => {
         setDatasets(
           data.map((row) => {
-            fetch(
-              "http://localhost:8000/api/v1/data/userSet/" + row.name + "/",
-              {
-                method: "GET",
-                headers: {
-                  Authorization: `Token ${localStorage.getItem("token")}`,
-                },
-              }
-            )
-              .then((res) => (res = res.json()))
-              .then((data) => {
-                size = data.data_pairs.length;
-              });
             return {
               Name: row.name,
-              Size: size,
+              Size: 0,
               Date_Uploaded: "08-10-2019",
               Last_Queried: "09-10-2021",
               id: row.id,
@@ -73,30 +73,31 @@ function Home(buttonClicked) {
             </tr>
           </thead>
           <tbody>
-            {
-              loading ? (
-                <tr> Loading... </tr>
-              ) : (
-                datasets.map((dataset) => {
-                  return (
-                    <tr>
-                      <td>{dataset.Name}</td>
-                      <td>{dataset.Size}</td>
-                      <td>{dataset.Date_Uploaded}</td>
-                      <td>{dataset.Last_Queried}</td>
-                      <td>
-                        <a href="#" onClick={() => path.push("/dataset")}>
-                          View Data
-                        </a>
-                      </td>
-                    </tr>
-                  );
-                })
-              )
-              // }
-              // }
-            }
-            {/* </React.Fragment> */}
+            {loading ? (
+              <tr> Loading... </tr>
+            ) : (
+              datasets.map((dataset) => {
+                return (
+                  <tr>
+                    <td>{dataset.Name}</td>
+                    <td>{dataset.Size}</td>
+                    <td>{dataset.Date_Uploaded}</td>
+                    <td>{dataset.Last_Queried}</td>
+                    <td>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          localStorage.setItem("dataset", dataset.Name);
+                          path.push("/dataset");
+                        }}
+                      >
+                        View Data
+                      </a>
+                    </td>
+                  </tr>
+                );
+              })
+            )}
           </tbody>
           <tfoot className="table-header-footer">
             <tr>
