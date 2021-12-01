@@ -30,10 +30,10 @@ SECRET_KEY = 'y18gty3xg$i8l(7#%@0y!hlzj^+hktn3*=bz@w077gstr-t&7a'
 DEBUG = os.getenv('DJANGO_DEBUG_FLAG', True)
 
 # when DEBUG is true and ALLOWED_HOSTS is empty, host is validated against ['.localhost', '127.0.0.1', '[::1]']
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # If DEBUG is true, this adds a layer of functionality. This tells Django its okay to disclose sensitive information whtin its requests and  allows for the debug tool bar
-INTERNAL_IPS = ['127.0.0.1']
+INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
@@ -45,10 +45,26 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dashboard'
+    
+    # 3rd party apps
+    'rest_framework', # new
+    'rest_framework.authtoken', # new
+    'rest_auth', # new
+    'django.contrib.sites', # new
+    'allauth', # new
+    'allauth.account', # new
+    'allauth.socialaccount', # new
+    'rest_auth.registration', # new
+    'corsheaders', # new
+    'magic',
+    
+    # local apps
+    'dashboard',
+    'users'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,8 +75,12 @@ MIDDLEWARE = [
 ]
 
 if DEBUG:
-    MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
-    INSTALLED_APPS.append("debug_toolbar")
+    # MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
+    # INSTALLED_APPS.append("debug_toolbar")
+
+    ALLOWED_CORS_ORIGINS = [
+        'http://localhost:3000'
+    ]
 
 ROOT_URLCONF = 'pear.urls'
 
@@ -121,6 +141,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_SESSION_REMEMBER = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_UNIQUE_EMAIL = True
+
+REST_FRAMEWORK = {    
+    'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'users.authentication.TimeLimitTokenAuthentication' 
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
@@ -140,3 +186,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+AUTH_USER_MODEL = 'users.CustomUser'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+ACCEPTABLE_FILE_TYPES = {'.xlsx', '.csv'}
