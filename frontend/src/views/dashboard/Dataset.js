@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Alert from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -19,6 +20,37 @@ function Dataset(props) {
   const [loading, setLoading] = useState(false);
 
   console.log(localStorage.getItem("token"));
+
+  const giveToken = (e) => {
+    function AlertDismissible() {
+      const [show, setShow] = useState(true);
+
+      return (
+        <>
+          <Alert show={show} variant="success">
+            <Alert.Heading>Token</Alert.Heading>
+            <p>
+              Token: {localStorage.getItem("token")}
+              URL:
+              http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/getValue/$&#123;q://QID2/ChoiceGroup/SelectedChoices&#125;/
+              {localStorage.getItem("dataset")}/
+            </p>
+            <hr />
+            <div className="d-flex justify-content-end">
+              <Button onClick={() => setShow(false)} variant="outline-success">
+                Close
+              </Button>
+            </div>
+          </Alert>
+
+          {!show && <Button onClick={() => setShow(true)}>Show Alert</Button>}
+        </>
+      );
+    }
+
+    render(<AlertDismissible />);
+  };
+
   useEffect(() => {
     setLoading(true);
     fetch(
@@ -177,6 +209,13 @@ function Dataset(props) {
               </tr>
             </tfoot>
           </Table>
+          <button
+            type="submit"
+            className="btn btn-create btn-block weight-light"
+            onClick={giveToken()}
+          >
+            Generate Qualtrics URL and Token
+          </button>
         </Row>
       </Container>
     </div>
