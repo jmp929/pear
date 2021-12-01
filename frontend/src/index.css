@@ -48,7 +48,7 @@
 
 .font {
     color: #22577A;
-    font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
 }
 
 
@@ -81,7 +81,7 @@
 }
 
 .forgot-password {
-    font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
     margin-top: 20px;
 }
 
@@ -97,6 +97,7 @@
 .navbar-title {
     color: white;
     /* font-family: 'Times New Roman', Times, serif;
+     font-weight: 175;
     font-size: 40px;
     margin-left: 20px; */
 }

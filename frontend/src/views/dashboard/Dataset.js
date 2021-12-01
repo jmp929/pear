@@ -5,26 +5,41 @@ import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import '/Users/davidlundberg/pear/frontend/src/index.css';
-import Trashcan from '/Users/davidlundberg/pear/frontend/src/images/delete_trashcan.png';
+import '../../index.css';
+import Trashcan from '../../images/delete_trashcan.png';
 import { useHistory } from 'react-router-dom';
 
 function Dataset() {
     const path = useHistory();
-    const Data =[
-        {
-            Zipcode: 1001,
-            District: 2501
-        },
-        {
-            Zipcode: 1002,
-            District: 2502
-        },
-        {
-            Zipcode: 1003,
-            District: 2503
+    
+    var Data = []
+    
+    console.log(localStorage.getItem('token'));
+
+    fetch('http://localhost:8000/api/v1/data/userSet/test/', {
+        method: 'GET',
+        headers: {
+            Authorization: `Token ${localStorage.getItem('token')}`
         }
-    ]
+    })
+        .then(res => res.json())
+        .then(data => {
+            for (const row of data) {
+                    if(row.key != "zip") {
+                    Data.push({
+                        Zipcode: row.key,
+                        District: row.value
+                    });
+                    document.getElementById("table").innerHTML += `<tr>
+                    <td>` +row.key + `</td>
+                    <td>` + row.value + `</td>
+                    <td>
+                        <img className="delete-trashcan" src={Trashcan} alt="Pear Logo"/>
+                    </td>
+                </tr>`
+                    }
+        }
+        });
 
     return (
         <div>
@@ -65,7 +80,7 @@ function Dataset() {
                     </Col>
                 </Row>
                 <Row>
-                <Table className="table" hover bordered>
+                <Table className="table" id='table' hover bordered>
                         <thead className="table-header-footer">
                             <tr>
                                 <th className="font-color-white weight-light">ZipCode</th>

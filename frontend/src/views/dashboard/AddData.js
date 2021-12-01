@@ -4,7 +4,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Form from 'react-bootstrap/Form';
-import '/Users/davidlundberg/pear/frontend/src/index.css';
+import '../../index.css';
 import { useHistory } from 'react-router-dom';
 
 function AddData() {
@@ -68,10 +68,10 @@ function AddData() {
                                 <th colSpan="3">
                                 <Row>
                                     <Col md="auto">
-                                        <button type="submit" className='btn shadow btn-create btn-block weight-light'>Upload Data</button>
+                                        <button type="submit" className='btn btn-create btn-block weight-light shadow' onClick={() => path.push('/upload')}>Upload Data</button>
                                     </Col>
                                     <Col md="auto">
-                                        <button type="submit" className='btn shadow btn-add-row shadow-sm btn-block weight-light' >Add Row</button>
+                                        <button type="submit" className='btn btn-add-row btn-block weight-light shadow'>Add Row</button>
                                     </Col>
                                     <Col></Col>
                                 </Row>                      

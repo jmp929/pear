@@ -1,7 +1,8 @@
 // import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Route, Link, Redirect} from "react-router-dom";
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Logout from './views/auth/Logout'
 import Login from './views/auth/Login.js' ;
 import Signup from './views/auth/Signup';
 import Navbarr from './components/layout/Navbarr';
@@ -20,7 +21,7 @@ import TokenModal from "./views/auth/TokenModal";
 function App() {
   
 
-  const [user, setUser] = useState({email: ""});
+  const [user, setUser] = useState({email: "", password: ""});
   const [error, setError] = useState("");
 
   // Show Sign Up Modal
@@ -59,7 +60,8 @@ function App() {
     console.log(details);
     // Sets the user state
     setUser({
-      email: details.email
+      email: details.email,
+      password: details.password
     });
   }
 
@@ -67,6 +69,14 @@ function App() {
   const Logout = () => {
     setUser({name: "", email: ""});
   }
+
+  // const isLogged = !!localStorage.getItem("token")
+
+  // if(!isLogged) {
+  //     return (
+  //       <Redirect to="/" />
+  //     )
+  // }
 
   return (
     <div className="App">
@@ -78,7 +88,6 @@ function App() {
           </Route>
           <Route exact path="/login">
             <Login Login={Login_details} error={error} buttonClicked={signUpHandler}/>
-            <Signup show={showState} buttonClicked={signUpHandler}/>
           </Route>
           <Route exact path="/home">
             <Navbarr buttonClicked={tokenHandler}/>
@@ -95,6 +104,12 @@ function App() {
             <Navbarr buttonClicked={tokenHandler}/>
             <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
             <AddData />
+          </Route>
+          <Route exact path="/signup">
+            <Signup/>
+          </Route>
+          <Route exact path="/upload">
+            <Upload/>
           </Route>
         </Switch>
       </Router>
