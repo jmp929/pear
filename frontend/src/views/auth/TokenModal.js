@@ -15,7 +15,8 @@ function TokenModal(props) {
                     <h1 className="fs-2 fw-light">Token</h1>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="modal-btn btn shadow-sm login-btn btn-lg btn-block" type="submit "variant="primary" onClick={props.buttonClicked}>Close</button>
+                    <button className="modal-btn btn shadow login-btn btn-lg btn-block" type="submit "variant="primary" onClick={props.buttonClicked}>Close</button>
+                    <button className="modal-btn btn shadow login-btn btn-lg btn-block" type="submit "variant="primary" onClick={props.buttonClicked}>New Token</button>
                 </Modal.Footer>
             </Modal>
         </div>
