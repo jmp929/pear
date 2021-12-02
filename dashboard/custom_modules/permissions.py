@@ -14,15 +14,4 @@ class UsersDataPermission(BasePermission):
             return True
         else:
             return False
-
-    def get_permission_level(self):
-        request = self.request
-        if SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_admin=True).exists():
-            return "ADMIN"
-        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_write=True).exists():
-            return "WRITE"
-        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_read=True).exists():
-            return "READ"
-        else:
-            return None
             

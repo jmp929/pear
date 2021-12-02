@@ -1,10 +1,13 @@
 import datetime
+from re import S
+from django.db import transaction
 
 from django.http import JsonResponse
 from django.http.response import Http404
 from django.shortcuts import render
 from django.utils import timezone
 
+from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.generics import ListCreateAPIView, RetrieveDestroyAPIView
 from rest_framework.mixins import CreateModelMixin
 from rest_framework.permissions import IsAdminUser
@@ -19,26 +22,50 @@ from rest_framework.authentication import (
 )
 
 from .serializers import UserSerializer, TokenSerializer
-from .models import CustomUser
+from .models import CustomUser, SurveyToken
 
-class TokenView(RetrieveDestroyAPIView, CreateModelMixin):
-    queryset = Token.objects.all()
+
+class TokenView(RetrieveDestroyAPIView):
+    queryset = SurveyToken.objects.all()
     serializer_class = TokenSerializer
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
-
 
     def get_object(self):
-        return Token.objects.get(user=self.request.user)
+        return SurveyToken.objects.get(user=self.request.user)
 
     def retrieve(self, request, *args, **kwargs):
         token = self.get_object()
-        if token_valid(token.created):
+        days_left = self.get_days_left(token.created)
+        if days_left > 0:
             serialized = self.get_serializer(token)
             return Response(serialized.data)
         else:
-            return Response({"message":  "Token has expired. Please reset token for further use"})
+            return Response({"message":  "Token has expired. Please create new token for further use"})
+
+    def post(self, request, *args, **kwargs):
+        if not SurveyToken.objects.filter(user=request.user).exists():
+            return self.create(request=request, *args, **kwargs)
+        else:
+            token = self.get_object()
+            key = token.save(change=True)
+            token = self.get_object()
+            serialized = self.get_serializer(token)
+            response = Response(serialized.data)
+            response.data['key'] = key
+            return response
+
+    def create(self, request, *args, **kwargs):
+        user = request.user
+        new_token = SurveyToken(user=user)
+        key = new_token.save()
+        token = SurveyToken.objects.get(user=user)
+        serialized = self.get_serializer(token)
+        response = Response(serialized.data)
+        response.data['key'] = key
+        return response
 
 
-def token_valid(created):
-    now = timezone.now()
-    return now - created < datetime.timedelta(days=60)
+    def get_days_left(self, created):
+        now = timezone.now()
+        return 30 - (now - created).days
+
+

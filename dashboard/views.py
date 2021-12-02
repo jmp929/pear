@@ -10,7 +10,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.authentication import (
     BasicAuthentication, 
-    SessionAuthentication
+    SessionAuthentication,
+    TokenAuthentication
 )
 from django.db import transaction
 
@@ -44,7 +45,7 @@ class DataPairSurveyView(UsersDataPermission, MultipleFieldLookupMixin, generics
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'dataset']
-    authentication_classes = [TimeLimitTokenAuthentication]
+    authentication_classes = (TimeLimitTokenAuthentication,)
 
 
 class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
@@ -52,7 +53,7 @@ class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
     # serializer_class = DataSetSerializer
     lookup_fields = ['dataset']
     permission_classes = [IsAuthenticated]
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = (TokenAuthentication,)
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
@@ -85,7 +86,7 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = (TokenAuthentication,)
 
     def patch(self, request, *args, **kwargs):
         if 'key' and 'value' in request.data:
@@ -105,7 +106,7 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     # lookup_fields = []
-    authentication_classes = [BasicAuthentication, SessionAuthentication]
+    authentication_classes = (TokenAuthentication,)
 
     def list(self, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
@@ -189,8 +190,6 @@ def get_dataset_users(request, *args, **kwargs):
             )
     else:
         return HttpResponse(status=400)
-
-
 
 def get_dataset_permission_level(request):
         if SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_admin=True).exists():
