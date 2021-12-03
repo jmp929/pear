@@ -1,6 +1,12 @@
 from django.db import models
 from users.models import CustomUser
-from django.db.models import constraints
+from django.db.models import constraints, indexes
+
+PERMISSIONS = (
+        ('R', 'read'),
+        ('W', 'write'),
+        ('A', 'admin'),
+    )
 
 
 class Dataset(models.Model):
@@ -14,22 +20,27 @@ class Dataset(models.Model):
         related_name='dataToUsers'
     )
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['name',])
+        ]
+
 
 
 class SetToUser(models.Model):
     dataset = models.ForeignKey(Dataset, related_name="setToDataset", on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, related_name="setToUser", on_delete=models.CASCADE)
-    can_write = models.BooleanField(default=False, null=False, blank=False)
-    can_read = models.BooleanField(default=True, null=False, blank=False)
-    can_admin = models.BooleanField(default=False, null=False, blank=False)
+    permission = models.CharField(max_length=5, choices=PERMISSIONS, default='R')
+    creater = models.BooleanField(default=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
 
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['dataset', 'user'], name="unique_dataset_for_user"),
-            models.CheckConstraint(
-                check=models.Q(can_admin=True) | models.Q(can_write=True) | models.Q(can_read=True),
-                name="at_least_one_permission"
-            )
+        ]
+        indexes = [
+            models.Index(fields=['dataset', 'user',]),
         ]
 
 
@@ -41,4 +52,7 @@ class DataPair(models.Model):
     class Meta:
         constraints = [
             models.UniqueConstraint(fields=['key', 'dataset'], name="unique_dataset_key")
+        ]
+        indexes = [
+            models.Index(fields=['dataset', 'key',]),
         ]

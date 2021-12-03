@@ -1,13 +1,18 @@
+from typing import Set
+from django.core.exceptions import PermissionDenied
 from django.db.models import query
+from django.http import request
 from django.http.response import HttpResponse
 from django.shortcuts import render
 import json
+from django.forms.models import model_to_dict
 from rest_framework import status, generics, mixins
 from rest_framework.decorators import action, authentication_classes, api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.authentication import (
     BasicAuthentication, 
     SessionAuthentication,
@@ -21,18 +26,22 @@ from .models import (
     Dataset,
     DataPair,
     SetToUser,
+    PERMISSIONS
 )
 from .serializers import (
+    AdminDataSetSerializer,
     DataPairSerializer,
     DataSetSerializer,
-    FileUploadSerializer
+    FileUploadSerializer,
+    AdminSetToUserSerializer
 )
 from .custom_modules.mixins import (
     MultipleFieldLookupMixin,
     # GetRelatedMixin
 )
 from .custom_modules.permissions import (
-    UsersDataPermission
+    UsersDataPermission,
+    DatasetAdminPermission
 )
 from .custom_modules.validators import (
     FileValidator
@@ -50,7 +59,6 @@ class DataPairSurveyView(UsersDataPermission, MultipleFieldLookupMixin, generics
 
 class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
     queryset = Dataset.objects.all()
-    # serializer_class = DataSetSerializer
     lookup_fields = ['dataset']
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication,)
@@ -89,53 +97,55 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
     authentication_classes = (TokenAuthentication,)
 
     def patch(self, request, *args, **kwargs):
-        if 'key' and 'value' in request.data:
-            return self.partial_update(request, *args, **kwargs)
-        else:
-            print("values missing")
-            raise
-
-    def get_queryset(self, *args, **kwargs):
-        return DataPair.objects.all()
-        # return self.get_serializer_class().get_related(queryset)
-
+        if 'key' not in request.data or 'value' not in request.data:
+            raise ValidationError("Must be key and value in request")
+        return self.partial_update(request, *args, **kwargs)
 
 
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
 class UserDataSetView(UsersDataPermission, generics.ListAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
-    # lookup_fields = []
-    authentication_classes = (TokenAuthentication,)
+    authentication_classes = (TokenAuthentication, BasicAuthentication)
+        
 
-    def list(self, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(queryset, many=True)
         dataset = self.get_dataset()
-        permission_level = get_dataset_permission_level(self.request)
-        objs = {
-            'dataset': json.dumps(dataset, indent=4, sort_keys=True, default=str),
+        set_to_user = self.get_set_to_user(dataset, request.user)
+        data = {
+            'dataset': AdminDataSetSerializer(dataset).data if self.is_admin(set_to_user) else DataSetSerializer(dataset).data,
+            'dataset_size': json.dumps(DataPair.objects.filter(dataset=dataset).count()),
             'data_pairs': serializer.data,
-            'permission_level': json.dumps(permission_level),
+            'permission_level': f'{set_to_user.permission}',
         }
-        if permission_level == "ADMIN":
-            other_users = self.get_other_users()
-            objs["other_users"] = json.dumps(other_users, indent=4, sort_keys=True, default=str)
-        return Response(objs)
+        return Response(data)
 
     def get_dataset(self):
-        dataset_name = self.kwargs['dataset_name']
-        dataset = Dataset.objects.filter(name=dataset_name).values()[0]
-        return dataset
+        try:
+            dataset_name = self.kwargs['dataset_name']
+            dataset =  Dataset.objects.get(name=dataset_name)
+            return dataset
+        except Dataset.DoesNotExist:
+            raise NotFound()
 
+    def get_set_to_user(self, dataset, user):
+        try:
+            return SetToUser.objects.get(dataset=dataset, user=user)
+        except SetToUser.DoesNotExist:
+            raise NotFound()
     
     def get_other_users(self):
         dataset_name = self.kwargs['dataset_name']
         dataset = Dataset.objects.get(name=dataset_name)
 
-        other_users = SetToUser.objects.filter(dataset=dataset).select_related("user").values("can_read", "can_write", "can_admin", "user__email")
+        other_users = SetToUser.objects.filter(dataset=dataset).select_related("user").values("permission", "user__email")
 
         return other_users
+
+    def is_admin(self, set_to_user):
+        return set_to_user.permission == 'A'
         
 
     def get_queryset(self):
@@ -145,43 +155,52 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
         return data_pairs
 
 @api_view(['POST', 'PUT', 'DELETE'])
-@authentication_classes([SessionAuthentication, BasicAuthentication]) 
+@authentication_classes([TokenAuthentication]) 
 def manage_dataset_users(request, *args, **kwargs):
-    permission_level = get_dataset_permission_level(request)
-    if permission_level == "ADMIN":
+    try:
+        dataset = Dataset.objects.get(name=request.dataset_name)
+    except Dataset.DoesNotExist:
+        raise NotFound(f"No dataset found with name {request.dataset_name}")
+
+    try:
+        set_to_user = SetToUser.objects.get(user=request.user, dataset=dataset)
+    except SetToUser.DoesNotExist:
+        raise NotFound(f"{request.user} does not have access to {dataset.name}")
+
+    if set_to_user.permission == "admin":
         target_user = CustomUser.objects.get(email=request.email)
-        if SetToUser.objects.filter(user=target_user, dataset=request.dataset).exists() and request.method == "PUT":
-            set_to_user = SetToUser.objects.filter(user=target_user, dataset=request.dataset)[0]
-            level = request.permission
-            with transaction.atomic():
-                set_to_user.can_admin = True if level == "can_admin" else False
-                set_to_user.can_write = True if level == "can_admin" or level == "can_write" else False
-                set_to_user.can_read = True if level == "can_admin" or level == "can_write" or level == "can_read" else False
-                set_to_user.save()
+        if SetToUser.objects.filter(user=target_user, dataset=request.dataset).exists():
+            if request.method == "PUT":
+                set_to_user.permission = request.permission
+            elif request.method == "DELETE":
+                set_to_user.delete()
+            set_to_user.save()
             return HttpResponse(status=201)
-        elif SetToUser.objects.filter(user=target_user, dataset=request.dataset).exists() and request.method == "DELETE":
-            SetToUser.objects.filter(user=target_user).delete()
-            return HttpResponse(status=201)
-        elif not SetToUser.objects.filter(user=target_user, dataset=request.dataset).exists() and request.method == "POST":
-            level = request.permission
+        elif request.method == "POST":
             new_set_to_user = SetToUser(
                 user = target_user,
                 dataset = request.dataset,
-                can_admin = True if level == "can_admin" else False,
-                can_write = True if level == "can_admin" or level == "can_write" else False,
-                can_read = True if level == "can_admin" or level == "can_write" or level == "can_read" else False,
+                permission = request.permission
             )
+            new_set_to_user.save()
             return HttpResponse(status=201)
-        else:
-            return HttpResponse(status=400)
+    return HttpResponse(status=400)
 
 @api_view(['GET'])
-@authentication_classes([SessionAuthentication, BasicAuthentication]) 
+@authentication_classes([TokenAuthentication, BasicAuthentication]) 
 def get_dataset_users(request, *args, **kwargs):
-    permission_level = get_dataset_permission_level(request)
-    if permission_level == "ADMIN" and Dataset.objects.filter(name=request.dataset_name).exists():
-        dataset_name = request.dataset_name
-        dataset = Dataset.objects.get(name=dataset_name)
+    
+    try:
+        dataset = Dataset.objects.get(name=request.GET.get("dataset_name"))
+    except Dataset.DoesNotExist:
+        raise NotFound("Dataset not found")
+
+    try:
+        set_to_user = SetToUser.objects.get(user=request.user, dataset=dataset)
+    except SetToUser.DoesNotExist:
+        raise NotFound(f"{request.user} does not have access to {dataset.name}")
+
+    if set_to_user.permission == 'admin':
         other_users = SetToUser.objects.filter(dataset=dataset).select_related("user").values("can_read", "can_write", "can_admin", "user__email")
         
         return Response({
@@ -189,17 +208,83 @@ def get_dataset_users(request, *args, **kwargs):
             }
             )
     else:
-        return HttpResponse(status=400)
+        raise PermissionDenied(f"{request.user} does not have necessary permissions for {dataset.name}")
 
-def get_dataset_permission_level(request):
-        if SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_admin=True).exists():
-            return "ADMIN"
-        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_write=True).exists():
-            return "WRITE"
-        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, can_read=True).exists():
-            return "READ"
-        else:
-            return None
+
+class SetToUserView(generics.RetrieveUpdateDestroyAPIView, mixins.CreateModelMixin, mixins.ListModelMixin):
+    serializer_class = AdminSetToUserSerializer
+
+    def get_queryset(self):
+        if self.request.method == "GET":
+            return SetToUser.objects.filter(dataset=self.get_dataset())
+
+    def get_dataset(self):
+        dataset_name = self.kwargs['dataset_name']
+        dataset = Dataset.objects.get(name=dataset_name)
+        return dataset
+
+    def get_object(self):
+        dataset = self.get_dataset()
+        return SetToUser.objects.get(user=self.request.user, dataset=dataset)
+
+    def has_permission(self):
+        return self.get_object().permission == 'A'
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+        # queryset = self.get_queryset()
+        # serialized = self.get_serializer_class()(queryset)
+        # return Response(serialized.data)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            target_user = CustomUser.objects.get(email=request.email)
+        except CustomUser.DoesNotExist:
+            raise NotFound()
+
+        if SetToUser.objects.filter(dataset=self.get_dataset(), user=target_user).exists():
+            raise ValidationError()      
+
+        new_set_to_user = SetToUser(
+                user = target_user,
+                dataset = self.get_dataset(),
+                permission = request.permission
+            )
+        new_set_to_user.save()
+        return HttpResponse(status=201)
+
+    def put(self, request, *args, **kwargs):
+        try:
+            target_user = CustomUser.objects.get(email=request.data['email'])
+        except CustomUser.DoesNotExist:
+            raise NotFound()
+
+        try:
+            target_set_to_user = SetToUser.objects.get(dataset=self.get_dataset(), user=target_user)
+        except SetToUser.DoesNotExist:
+            raise NotFound()
+
+        target_set_to_user.permission = request.data['permission']
+        target_set_to_user.save()
+        return HttpResponse(status=201)
+
+    def delete(self, request, *args, **kwargs):
+        try:
+            target_user = CustomUser.objects.get(email=request.data['email'])
+        except CustomUser.DoesNotExist:
+            raise NotFound()
+
+        try:
+            target_set_to_user = SetToUser.objects.get(dataset=self.get_dataset(), user=target_user)
+        except SetToUser.DoesNotExist:
+            raise NotFound()
+
+        target_set_to_user.delete()
+        return HttpResponse(status=201)
+
+
+
+
 
 
 

@@ -6,6 +6,7 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.authtoken.models import Token
 from django.contrib.auth.hashers import make_password, check_password, is_password_usable, get_hasher, identify_hasher
+from django.utils.translation import gettext_lazy as _
 
 
 from users.models import CustomUser, SurveyToken
