@@ -1,149 +1,120 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "src/index.css";
-import Trashcan from "src/images/delete_trashcan.png";
+import "../../index.css";
+import Trashcan from "../../images/delete_trashcan.png";
 import { useHistory } from "react-router-dom";
 
-function Dataset() {
+function Dataset({ buttonClicked }) {
   const path = useHistory();
-  const Data = [
-    {
-      Zipcode: 1001,
-      District: 2501,
-    },
-    {
-      Zipcode: 1002,
-      District: 2502,
-    },
-    {
-      Zipcode: 1003,
-      District: 2503,
-    },
-  ];
+  var [headers, setHeaders] = useState([]);
+
+  var [dataPairs, setData] = useState([]);
+
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch(
+      `http://localhost:8000/api/v1/data/userSet/${localStorage.getItem(
+        "dataset"
+      )}/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setHeaders(data.data_pairs.shift());
+        setData(
+          data.data_pairs.map((row) => {
+            return {
+              key: row.key,
+              value: row.value,
+            };
+          })
+        );
+        setLoading(false);
+      });
+  }, []);
+
+  // const handleDelete = (e) => {
+  //   e.preventDefault();
+  //   fetch(
+  //     `http://localhost:8000/api/v1/data/userSet/${localStorage.getItem(
+  //       "dataset"
+  //     )}/delete/`,
+  //     {
+  //       method: "DELETE",
+  //       headers: {
+  //         Authorization: `Token ${localStorage.getItem("token")}`,
+  //       },
+  //     }
+  //   );
+  //   localStorage.removeItem("dataset");
+  //   path.push("/home");
+  // };
 
   return (
     <div>
-      <Row>
-        <Col md={8}>
-          <h1 className="display-6 pe-5 pt-3 pb-2">
-            Zip Code to Congressional District
-          </h1>
-        </Col>
-        <Col>
-          <Button
-            variant="danger"
-            size="lg"
-            className="mt-2 shadow-sm weight-light"
-          >
-            Delete Dataset
-          </Button>
-        </Col>
-      </Row>
-      <Row>
-        <Col md={{ span: 1, offset: 8 }}>
-          <p className="fs-4">Search:</p>
-        </Col>
-        <Col md={{ span: 2 }}>
-          <Form>
-            <Form.Control className="shadow-sm" type="search"></Form.Control>
-          </Form>
-        </Col>
-      </Row>
       <Container className="home-container">
-        <Row md={6}>
-          <Col md={1}>
-            <p className="fs-5">show</p>
+        <Row>
+          <Col md>
+            <h1 className="display-6 pe-5 pt-3 pb-2">
+              {localStorage.getItem("dataset")}
+            </h1>
           </Col>
-          <Col md={1}>
-            <Form>
-              <Form.Select className="shadow-sm">
-                <option></option>
-                <option value="10"></option>
-                <option value="20"></option>
-              </Form.Select>
-            </Form>
-          </Col>
-          <Col md={1}>
-            <p className="fs-5">Entries</p>
+          <Col>
+            <button
+              className="btn btn-create shadow btn-lg weight-light"
+              onClick={buttonClicked}
+            >
+              Get URL and Token for Qualtrics
+            </button>
           </Col>
         </Row>
         <Row>
-          <Table className="table" hover bordered>
+          <Table className="table" hover bordered useFlexLayout>
             <thead className="table-header-footer">
               <tr>
-                <th className="font-color-white weight-light">ZipCode</th>
+                <th className="font-color-white weight-light">{headers.key}</th>
                 <th className="font-color-white weight-light">
-                  Congressional District
+                  {headers.value}
                 </th>
-                <th className="font-color-white weight-light">Remove Row</th>
               </tr>
             </thead>
             <tbody>
               {/* create's a table entry for each entry in the Dataset */}
               <React.Fragment>
-                {Data.map((entry) => {
-                  return (
-                    <tr>
-                      <td>{entry.Zipcode}</td>
-                      <td>{entry.District}</td>
-                      <td>
-                        <img
-                          className="delete-trashcan"
-                          src={Trashcan}
-                          alt="Pear Logo"
-                        />
-                      </td>
-                    </tr>
-                  );
-                })}
+                {loading ? (
+                  <tr>
+                    <td colSpan="5">
+                      <h4 className="font-color-black weight-light">
+                        {" "}
+                        Loading...{" "}
+                      </h4>
+                    </td>
+                  </tr>
+                ) : (
+                  dataPairs.map((entry) => {
+                    return (
+                      <tr>
+                        <td>{entry.key}</td>
+                        <td>{entry.value}</td>
+                      </tr>
+                    );
+                  })
+                )}
               </React.Fragment>
             </tbody>
-            <tfoot className="table-header-footer">
-              <tr>
-                <th colSpan="3">
-                  <Row>
-                    <Col md="auto">
-                      <button
-                        type="submit"
-                        className="btn shadow-sm btn-create btn-block weight-light"
-                      >
-                        Add New Entry
-                      </button>
-                    </Col>
-                    <Col md="auto">
-                      <button
-                        type="submit"
-                        className="btn shadow-sm btn-create btn-block weight-light"
-                      >
-                        Bulk Add
-                      </button>
-                    </Col>
-                    <Col></Col>
-                    <Col md="auto">
-                      <button
-                        type="submit"
-                        className="btn shadow-sm btn-create btn-block weight-light"
-                      >
-                        Previous
-                      </button>
-                    </Col>
-                    <Col md="auto">
-                      <button
-                        type="submit"
-                        className="btn shadow-sm btn-create btn-block weight-light"
-                      >
-                        Next
-                      </button>
-                    </Col>
-                  </Row>
-                </th>
-              </tr>
-            </tfoot>
+            <tfoot className="table-header-footer"></tfoot>
           </Table>
         </Row>
       </Container>

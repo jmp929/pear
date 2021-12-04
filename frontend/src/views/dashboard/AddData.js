@@ -4,11 +4,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
 import Form from "react-bootstrap/Form";
-import "src/index.css";
+import "../../index.css";
 import { useHistory } from "react-router-dom";
 
-function AddData() {
-  // {buttonClicked, numRows}
+function AddData({ buttonClicked, numRows }) {
   const path = useHistory();
   const NewData = [
     {
@@ -81,6 +80,7 @@ function AddData() {
                       <button
                         type="submit"
                         className="btn shadow btn-create btn-block weight-light"
+                        onClick={buttonClicked}
                       >
                         Upload Data
                       </button>

@@ -1,6 +1,6 @@
 import React from "react";
-import header from "src/images/header.jpg";
-import Logo from "src/images/logo.svg";
+import header from "../../images/header.jpg";
+import Logo from "../../images/logo.svg";
 import CreateAcc from "../auth/CreateAcc";
 import { Container, Row, Col } from "react-bootstrap";
 

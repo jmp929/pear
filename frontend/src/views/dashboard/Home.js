@@ -1,29 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Table from "react-bootstrap/Table";
-import "src/index.css";
+import "../../index.css";
 import { useHistory } from "react-router-dom";
 
-function Home(buttonClicked) {
+function Home({ buttonClicked }) {
   const path = useHistory();
 
-  const [show, setShow] = useState(false);
-  const Datasets = [
-    {
-      Name: "Zip Code to Congressional Districts",
-      Size: 50000,
-      Date_Uploaded: "08-10-2019",
-      Last_Queried: "09-10-2021",
-    },
-    {
-      Name: "Software to CVE",
-      Size: 700000,
-      Date_Uploaded: "08-10-2019",
-      Last_Queried: "09-10-2021",
-    },
-  ];
+  const [datasets, setDatasets] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:8000/api/v1/data/userSets/", {
+      method: "GET",
+      headers: {
+        Authorization: `Token ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        let rows = [];
+        let promises = data.map((row) => {
+          return fetch(
+            `http://localhost:8000/api/v1/data/userSet/${row.name}/`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Token ${localStorage.getItem("token")}`,
+              },
+            }
+          )
+            .then((res) => res.json())
+            .then((data) => {
+              rows.push({
+                Name: row.name,
+                Size: data.dataset_size,
+                Date_Uploaded: row.created,
+                Last_Queried: row.last_queried,
+                id: row.id,
+              });
+            });
+        });
+        Promise.all(promises).then(() => {
+          setDatasets(rows);
+          setErrors(data.length == 0);
+          setLoading(false);
+        });
+      });
+  }, []);
 
   return (
     <Container className="home-container">
@@ -46,8 +74,26 @@ function Home(buttonClicked) {
             </tr>
           </thead>
           <tbody>
-            <React.Fragment>
-              {Datasets.map((dataset) => {
+            {errors == true && (
+              <tr>
+                <td colSpan="5">
+                  <h4 className="font-color-black weight-light">
+                    No datasets found
+                  </h4>
+                </td>
+              </tr>
+            )}
+            {loading ? (
+              <tr>
+                <td colSpan="5">
+                  <h4 className="font-color-black weight-light">
+                    {" "}
+                    Loading...{" "}
+                  </h4>
+                </td>
+              </tr>
+            ) : (
+              datasets.map((dataset) => {
                 return (
                   <tr>
                     <td>{dataset.Name}</td>
@@ -55,25 +101,31 @@ function Home(buttonClicked) {
                     <td>{dataset.Date_Uploaded}</td>
                     <td>{dataset.Last_Queried}</td>
                     <td>
-                      <a href="#" onClick={() => path.push("/dataset")}>
+                      <a
+                        href="#"
+                        onClick={() => {
+                          localStorage.setItem("dataset", dataset.Name);
+                          path.push("/dataset");
+                        }}
+                      >
                         View Data
                       </a>
                     </td>
                   </tr>
                 );
-              })}
-            </React.Fragment>
+              })
+            )}
           </tbody>
           <tfoot className="table-header-footer">
             <tr>
               <th colSpan="5">
-                <Col md={4}>
+                <Col>
                   <button
                     type="submit"
                     className="btn btn-create shadow btn-block weight-light"
-                    onClick={() => path.push("/add")}
+                    onClick={buttonClicked}
                   >
-                    Add New Data Set Here
+                    Upload
                   </button>
                 </Col>
               </th>

@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "react-bootstrap/Navbar";
-import "src/index.css";
-import Logo from "src/images/logo.svg";
+import "../../index.css";
+import Logo from "../../images/logo.svg";
 
 function HeaderNavbar() {
   return (

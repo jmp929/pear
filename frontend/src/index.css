@@ -1,59 +1,57 @@
-@import url('https://fonts.googleapis.com/css2?family=Adamina&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Adamina&display=swap");
 .login-card {
-    content: '';
-    background-image: linear-gradient(to bottom right, #72cf9c, #C7F9CC);
-    /* background-color: #C7F9CC; */
-    margin: auto;
-    margin-top: 50px;
-    height: 671px;
-    width: 455px;
-    padding: 10px;
+  content: "";
+  background-image: linear-gradient(to bottom right, #72cf9c, #c7f9cc);
+  /* background-color: #C7F9CC; */
+  margin: auto;
+  margin-top: 50px;
+  height: 671px;
+  width: 455px;
+  padding: 10px;
 }
 
 .navbarr {
-    content: '';
-    /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
-    background-color: #38A3A5;
+  content: "";
+  /* background-image: linear-gradient(to bottom right, #3CB371, #98FB98); */
+  background-color: #38a3a5;
 }
 
 .login-credentials {
-    content: '';
-    margin: auto;
-    margin-bottom: 40px;
-    margin-top: 20px;
-    padding: 10px;
-    width: 259px;
-    height: 63px;
-    
+  content: "";
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 20px;
+  padding: 10px;
+  width: 259px;
+  height: 63px;
 }
 
 .need-account {
-    content: '';
-    margin-top: 20px;
+  content: "";
+  margin-top: 20px;
 }
 
 .login-btn {
-    background-color: #22577A;
-    color: white;
+  background-color: #22577a;
+  color: white;
 }
 
 .btn-create {
-    background-color: #57CC99;
-    color: white;
+  background-color: #57cc99;
+  color: white;
 }
 
 .login-inputs {
-    margin: auto;
+  margin: auto;
 }
 
 .font {
-    color: #22577A;
-    font-family: 'Times New Roman', Times, serif;
+  color: #22577a;
+  font-family: "Times New Roman", Times, serif;
 }
 
-
 .modal-header-footer {
-    background-color: #38A3A5;
+  background-color: #38a3a5;
 }
 
 /* .modal-body {
@@ -61,158 +59,155 @@
 } */
 
 .m-title {
-    color: white;
-    margin-left: 160px;
+  color: white;
+  margin-left: 160px;
 }
 
 .center {
-    margin: auto;
-    width: 50%;
-    padding: 10px;
-  }
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
 
 .modal-btn {
-    margin: auto;
+  margin: auto;
 }
 
 .logo {
-    max-width: 20%;
-    height: auto;
+  max-width: 20%;
+  height: auto;
 }
 
 .forgot-password {
-    font-family: 'Times New Roman', Times, serif;
-    margin-top: 20px;
+  font-family: "Times New Roman", Times, serif;
+  margin-top: 20px;
 }
 
 .subtitle {
-    margin-bottom: 40px;
+  margin-bottom: 40px;
 }
 
 .navbar-logo {
-    max-width: 3%;
-    height: auto;
+  max-width: 3%;
+  height: auto;
 }
 
 .navbar-title {
-    color: white;
-    /* font-family: 'Times New Roman', Times, serif;
+  color: white;
+  /* font-family: 'Times New Roman', Times, serif;
     font-size: 40px;
     margin-left: 20px; */
 }
 .navbar {
-    box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
+  box-shadow: 0 0 10px 0 rgba(100, 100, 100, 0.26);
 }
 .logout-btn {
-    position: absolute;
-    background-color: #57CC99;
-    right: 70px;
-    width: 135px;
-    margin-right: 10px;
+  position: absolute;
+  background-color: #57cc99;
+  right: 70px;
+  width: 135px;
+  margin-right: 10px;
 }
 
 .table-header-footer {
-    background-color: #38A3A5;
+  background-color: #38a3a5;
 }
 
 .font-color-white {
-    color: white;
+  color: white;
 }
 .weight-light {
-    font-weight: 175;
+  font-weight: 175;
 }
 
 .table th {
-    border: #308c8e solid 1px !important;
+  border: #308c8e solid 1px !important;
 }
 
 .table td {
-    background-color: white;
-    font-family: 'Courier New', Courier, monospace;
-    padding-top: 25px;
-    padding-bottom: 25px;
+  background-color: white;
+  font-family: "Courier New", Courier, monospace;
+  padding-top: 25px;
+  padding-bottom: 25px;
 }
 
 .table-footer-color {
-    background-color: #38A3A5 !important;
+  background-color: #38a3a5 !important;
 }
 
 .add-modal-body {
-    background-color: white;
+  background-color: white;
 }
 
 .back-to-home {
-    position: relative;
-    left: 0;
+  position: relative;
+  left: 0;
 }
 
 .delete-trashcan {
-    max-width: 4%;
-    height: auto;
+  max-width: 4%;
+  height: auto;
 }
 
 .add-data-title {
-    font-size: 75px;
+  font-size: 75px;
 }
 
 .delete {
-    color: red;
-
+  color: red;
 }
 
 .btn-add-row {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .header {
-    background-color: #C7F9CC;
-    
+  background-color: #c7f9cc;
 }
 
 .header-logo {
-    max-width: 20%;
-    height: auto;
+  max-width: 20%;
+  height: auto;
 }
 
 #showcase {
-    /* background-color: #baf7c0; */
-    /* background-color: #C7F9CC; */
-    background-image: linear-gradient(to bottom right, #72cf9c, #C7F9CC);
-    padding-top: 100px;
-    padding-bottom: 100px;
-    padding: auto;
+  /* background-color: #baf7c0; */
+  /* background-color: #C7F9CC; */
+  background-image: linear-gradient(to bottom right, #72cf9c, #c7f9cc);
+  padding-top: 100px;
+  padding-bottom: 100px;
+  padding: auto;
 }
 
 .header-create-btn {
-    background-color: #C7F9CC;
+  background-color: #c7f9cc;
 }
 
 .header-info-container {
-    background-color: #F2F4F4;
+  background-color: #f2f4f4;
 }
 
 .create-account-card {
-    /* background-color: #E5E8E8 ; */
-    background-color: #F2F4F4;
+  /* background-color: #E5E8E8 ; */
+  background-color: #f2f4f4;
 }
 
 .header-info-font {
-    font-size: large;
+  font-size: large;
 }
 
 .token-btn {
-    position: absolute;
-    background-color: #57CC99;
-    right: 225px;
-    width: 135px;
-    margin-right: 10px;
+  position: absolute;
+  background-color: #57cc99;
+  right: 225px;
+  width: 135px;
+  margin-right: 10px;
 }
 
 .home-btn {
-    position: absolute;
-    background-color: #57CC99;
-    right: 385px;
-    width: 135px;
-    margin-right: 10px;
+  position: absolute;
+  background-color: #57cc99;
+  right: 385px;
+  width: 135px;
+  margin-right: 10px;
 }
-
