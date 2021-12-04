@@ -13,14 +13,14 @@ function TokenModal(props) {
 
   const generateToken = () => {
     fetch(
-      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/create_token/",
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/survey_token/",
       {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
+          Authorization: `Token ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(details),
       }
     )
       .then((res) => res.json())
