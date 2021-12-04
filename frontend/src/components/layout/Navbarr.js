@@ -46,7 +46,7 @@ function Navbarr({Token, buttonClicked}) {
             <img className="navbar-logo" src={Logo} alt="Pear Logo"/>
             <h1 className="display-6 navbar-title">Pear</h1>
             <button className='home-btn btn btn-create shadow btn-lg btn-block weight-light' onClick={() => path.push('/home')}>Home</button>
-            <button className='token-btn btn btn-create shadow btn-lg btn-block weight-light' onClick={buttonClicked}>Get Token</button>
+            <button className='token-btn btn btn-create shadow btn-lg btn-block weight-light' onClick={buttonClicked}>Token</button>
             <button className='logout-btn btn btn-create shadow btn-lg btn-block weight-light' onClick={handleLogout}>Log Out</button>
             <button className='logout-btn btn btn-create btn-lg btn-block weight-light' onClick={handleLogout}>Log Out</button>
         </Navbar>

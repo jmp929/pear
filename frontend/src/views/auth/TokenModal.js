@@ -51,10 +51,41 @@ function TokenModal(props) {
             });
     };
 
+    // const onReset = e => {
+    //     setToken('');
+    //     setHasToken(false);
+    //     setTimeLeft('');
+        
+    //     const tokan = {
+    //         token: '',
+    //         hasToken: hasToken,
+    //         timeLeft: timeLeft
+    //     }
+    //     fetch('http://localhost:8000/api/v1/users/auth/survey_token/', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Token ${localStorage.getItem('token')}`
+    //         },
+    //         body: JSON.stringify(tokan)
+    //         })
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             if (data.key) {
+    //             localStorage.clear();
+    //             localStorage.setItem('token', data.key);
+    //             // window.location.replace('/home');
+    //             } else {
+    //             setToken('');
+    //             setHasToken(false);
+    //             localStorage.clear();
+    //             setErrors(true);
+    //             }
+    //         });
     const onReset = e => {
-        setToken('');
-        setHasToken(false);
-        setTimeLeft('');
+        // setToken('');
+        // setHasToken(false);
+        // setTimeLeft('');
         
         const tokan = {
             token: '',
