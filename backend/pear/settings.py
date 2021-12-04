@@ -27,13 +27,16 @@ SETTINGS_PATH = Path(__file__).resolve().parent
 SECRET_KEY = 'y18gty3xg$i8l(7#%@0y!hlzj^+hktn3*=bz@w077gstr-t&7a'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DJANGO_DEBUG_FLAG', True)
+DEBUG = os.getenv('DJANGO_DEBUG_FLAG', False)
 
 # when DEBUG is true and ALLOWED_HOSTS is empty, host is validated against ['.localhost', '127.0.0.1', '[::1]']
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # If DEBUG is true, this adds a layer of functionality. This tells Django its okay to disclose sensitive information whtin its requests and  allows for the debug tool bar
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
+
+ALLOWED_HOSTS = ['*']
+CORS_ORIGIN_ALLOW_ALL = True
 
 
 # Application definition
@@ -114,14 +117,14 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        # 'USER': os.getenv('DATABASE_USER', 'django'),
-        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        'USER': os.getenv('DATABASE_USER', 'postgres'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '172.22.80.1'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        'USER': os.getenv('DATABASE_USER', 'django'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        # 'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
+        # 'USER': os.getenv('DATABASE_USER', 'postgres'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
+        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.22.80.1'),
         # needs to be changed to local setup
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
@@ -191,6 +194,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+STATIC_URL = '/static/'
+
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

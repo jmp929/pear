@@ -12,14 +12,17 @@ function TokenModal(props) {
   const [token, setToken] = useState("");
 
   const generateToken = () => {
-    fetch("http://localhost:8000/api/v1/users/auth/create_token/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(details),
-    })
+    fetch(
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/create_token/",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setToken(data.token);
@@ -40,7 +43,7 @@ function TokenModal(props) {
             <span className="fw-bold">URL: </span>
             <br />
             <span className="fw-light bg-light">
-              http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/getValue/$&#123;q://QID2/ChoiceGroup/SelectedChoices&#125;/
+              pear-backend-slempp.apps.cloudapps.unc.eduapi/v1/data/getValue/$&#123;q://QID2/ChoiceGroup/SelectedChoices&#125;/
               {localStorage.getItem("dataset")}/
             </span>
             <br />

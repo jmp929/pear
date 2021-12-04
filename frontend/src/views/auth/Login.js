@@ -27,14 +27,17 @@ function Login({ Login, error, buttonClicked }) {
   const submitHandler = (e) => {
     e.preventDefault();
 
-    fetch("http://localhost:8000/api/v1/users/auth/login/", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(details),
-    })
+    fetch(
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/login/",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(details),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.key) {

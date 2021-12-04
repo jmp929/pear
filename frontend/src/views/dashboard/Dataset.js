@@ -20,7 +20,7 @@ function Dataset({ buttonClicked }) {
   useEffect(() => {
     setLoading(true);
     fetch(
-      `http://localhost:8000/api/v1/data/userSet/${localStorage.getItem(
+      `http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSet/${localStorage.getItem(
         "dataset"
       )}/`,
       {
@@ -48,7 +48,7 @@ function Dataset({ buttonClicked }) {
   // const handleDelete = (e) => {
   //   e.preventDefault();
   //   fetch(
-  //     `http://localhost:8000/api/v1/data/userSet/${localStorage.getItem(
+  //     `http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSet/${localStorage.getItem(
   //       "dataset"
   //     )}/delete/`,
   //     {

@@ -23,13 +23,16 @@ function Signup(props) {
       password2: password2,
     };
 
-    fetch("http://localhost:8000/api/v1/users/auth/register/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/users/auth/register/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.key) {

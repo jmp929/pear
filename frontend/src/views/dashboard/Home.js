@@ -15,18 +15,21 @@ function Home({ buttonClicked }) {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:8000/api/v1/data/userSets/", {
-      method: "GET",
-      headers: {
-        Authorization: `Token ${localStorage.getItem("token")}`,
-      },
-    })
+    fetch(
+      "http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSets/",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Token ${localStorage.getItem("token")}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         let rows = [];
         let promises = data.map((row) => {
           return fetch(
-            `http://localhost:8000/api/v1/data/userSet/${row.name}/`,
+            `http://pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/userSet/${row.name}/`,
             {
               method: "GET",
               headers: {
