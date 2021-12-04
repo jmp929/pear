@@ -1,9 +1,14 @@
+from typing import Set
+from django.contrib.auth.models import Permission
 from django.db.models.query_utils import select_related_descend
 from rest_framework import serializers
 
+from users.models import CustomUser
+
 from .models import (
     DataPair,
-    Dataset
+    Dataset,
+    SetToUser
 )
 from .custom_modules.mixins import (
     MultipleFieldLookupMixin,
@@ -15,16 +20,30 @@ class FileUploadSerializer(serializers.Serializer):
     file = serializers.FileField()
 
 
+class DataSetUserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ("email",)
+
+
 class DataSetSerializer(GetRelatedMixin, serializers.ModelSerializer):
-    prefetch_related_fields = ['users']
-    users = UserSerializer(many=True)
 
     class Meta:
         model = Dataset
-        # fields = '__all__'
-        exclude = ("created", "last_queried", "last_edited")
+        exclude = ("created", "last_queried", "last_edited", "users", "id")
 
-        
+
+class AdminDataSetSerializer(serializers.ModelSerializer):
+    users = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Dataset
+        fields = ("created", "last_queried", "last_edited", "users", "id")
+
+    def get_users(self, obj):
+        queryset = SetToUser.objects.filter(dataset=obj)
+        return [AdminSetToUserSerializer(inst).data for inst in queryset]
 
 
 class DataPairSerializer(serializers.ModelSerializer):
@@ -34,6 +53,11 @@ class DataPairSerializer(serializers.ModelSerializer):
         model = DataPair
         fields = '__all__'
 
-    # def get_certain_fields(cls, input):
-    #     cls.fields = ['name']
+
+class AdminSetToUserSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source='user.email')
+
+    class Meta:
+        model = SetToUser
+        fields = ("email", "permission")
         
