@@ -27,9 +27,9 @@ const Login = () => {
   
       const user = {
         email: email,
-        password: password
+        password: password,
       };
-  
+      
       fetch('http://localhost:8000/api/v1/users/auth/login/', {
         method: 'POST',
         headers: {
@@ -52,7 +52,6 @@ const Login = () => {
           }
         });
     };
-
     return (
         <Container>
                 <Card className="login-card shadow-lg">

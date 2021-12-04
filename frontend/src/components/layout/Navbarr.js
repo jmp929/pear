@@ -5,9 +5,13 @@ import Logo from '../../images/logo.svg';
 import { useHistory } from 'react-router-dom';
 import Logout from '../../views/auth/Logout';
 
-function Navbarr({buttonClicked}) {
+function Navbarr({Token, buttonClicked}) {
     const path = useHistory();
+    const [tokenTimeLeft, setTokenTimeLeft] = useState('');
+    const [errors, setErrors] = useState(false);
     const [loading, setLoading] = useState(true);
+    const [showTokenModal, setShowTokenModal] = useState(false);
+
 
     useEffect(() => {
         if (localStorage.getItem('token') == null) {
@@ -15,6 +19,7 @@ function Navbarr({buttonClicked}) {
         } else {
         setLoading(false);
         }
+
     }, []);
 
     const handleLogout = e => {
@@ -34,6 +39,7 @@ function Navbarr({buttonClicked}) {
             window.location.replace('/');
         });
     };
+
     
     return (
         <Navbar className="navbarr shadow mb-3" expand="lg">

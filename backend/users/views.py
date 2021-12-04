@@ -2,7 +2,7 @@ import datetime
 from re import S
 from django.db import transaction
 
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 from django.http.response import Http404
 from django.shortcuts import render
 from django.utils import timezone
@@ -30,6 +30,9 @@ class TokenView(RetrieveDestroyAPIView):
     serializer_class = TokenSerializer
 
     def get_object(self):
+        print("----------------------------------")
+        print(self.request.user)
+        print("-----------------------------------")
         return SurveyToken.objects.get(user=self.request.user)
 
     def retrieve(self, request, *args, **kwargs):

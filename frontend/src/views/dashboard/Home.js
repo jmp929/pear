@@ -20,6 +20,7 @@ function Home(buttonClicked) {
       method: "GET",
       headers: {
         Authorization: `Token ${localStorage.getItem("token")}`,
+        'content-type' : 'application/json',
       },
     })
       .then((res) => res.json())

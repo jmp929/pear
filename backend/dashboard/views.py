@@ -130,6 +130,7 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
             raise NotFound()
 
     def get_set_to_user(self, dataset, user):
+        
         try:
             return SetToUser.objects.get(dataset=dataset, user=user)
         except SetToUser.DoesNotExist:

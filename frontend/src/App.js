@@ -22,6 +22,7 @@ function App() {
   
 
   const [user, setUser] = useState({email: "", password: ""});
+  const [token, setToken] = useState({hasToken: false, tokenTimeLeft: ''});
   const [error, setError] = useState("");
 
   // Show Sign Up Modal
@@ -61,7 +62,14 @@ function App() {
     // Sets the user state
     setUser({
       email: details.email,
-      password: details.password
+      password: details.password,
+
+    });
+  }
+  const Token_details = tokenDetails => {
+    setToken({
+      hasToken: tokenDetails.hasToken,
+      tokenTimeLeft: tokenDetails.tokenTimeLeft
     });
   }
 
@@ -92,11 +100,11 @@ function App() {
           <Route exact path="/home">
             <Navbarr buttonClicked={tokenHandler}/>
             <Home buttonClicked={addDataHandler}/>
-            <Upload show={showUploadModal} buttonClicked={addDataHandler} />
-            <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
+            {/* <Upload show={showUploadModal} buttonClicked={addDataHandler} /> */}
+            <TokenModal Login={Login_details} Token={Token_details} show={showTokenModal} buttonClicked={tokenHandler}/>
           </Route>
           <Route exact path="/dataset">
-            <Navbarr buttonClicked={tokenHandler}/>
+            <Navbarr Token={Token_details} buttonClicked={tokenHandler}/>
             <TokenModal show={showTokenModal} buttonClicked={tokenHandler}/>
             <Dataset />
           </Route>
