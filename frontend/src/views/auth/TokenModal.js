@@ -43,7 +43,7 @@ function TokenModal(props) {
             <span className="fw-bold">URL: </span>
             <br />
             <span className="fw-light bg-light">
-              pear-backend-slempp.apps.cloudapps.unc.eduapi/v1/data/getValue/$&#123;e://Field/key&#125;/
+              pear-backend-slempp.apps.cloudapps.unc.edu/api/v1/data/getValue/$&#123;e://Field/key&#125;/
               {localStorage.getItem("dataset")}/
             </span>
             <br />
