@@ -17,8 +17,6 @@ function TokenModal(props) {
       {
         method: "POST",
         headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
           Authorization: `Token ${localStorage.getItem("token")}`,
         },
       }
@@ -50,15 +48,6 @@ function TokenModal(props) {
             <br />
             <span className="fw-bold">Token: </span>
             <span style={{ display: "flex" }} hidden={showToken}>
-              <input
-                type="password"
-                className="form-control login-credentials shadow"
-                placeholder="Password"
-                onChange={(e) =>
-                  setDetails({ ...details, password: e.target.value })
-                }
-                value={details.password}
-              />
               <button
                 className="modal-btn btn shadow-sm login-btn btn-lg btn-block"
                 onClick={generateToken}
