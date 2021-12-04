@@ -23,7 +23,7 @@ function TokenModal(props) {
     )
       .then((res) => res.json())
       .then((data) => {
-        setToken(data.token);
+        setToken(data.key);
         setShowToken(true);
       });
   };
