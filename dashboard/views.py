@@ -98,7 +98,7 @@ class UserDataSetsView(UsersDataPermission, MultipleFieldLookupMixin, generics.L
 
     
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
-class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
+class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
