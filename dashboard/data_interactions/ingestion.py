@@ -15,10 +15,10 @@ class IngestData:
         dataset = Dataset.objects.filter(name=dataset_name)
         if not dataset.exists():
             self.dataset = Dataset.objects.create(name=dataset_name)
-            SetToUser.objects.create(user=user, dataset=self.dataset, can_write=True, can_read=True, can_admin=True)
+            SetToUser.objects.create(user=user, dataset=self.dataset, permission='A')
         else:
-            permissions = SetToUser.objects.filter(user=user, dataset=dataset[0]).values('can_write', 'can_admin')[0]
-            if permissions.get('can_write') == True or permissions.get('can_admin') == True:
+            permission = SetToUser.objects.get(user=user, dataset=dataset[0]).permission
+            if permission == 'W' or permission == 'A':
                 self.dataset = Dataset.objects.get(name=dataset_name, users=user)
        
 
