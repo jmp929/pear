@@ -57,17 +57,25 @@ class DataPairSurveyView(UsersDataPermission, MultipleFieldLookupMixin, generics
     authentication_classes = (TimeLimitTokenAuthentication,)
 
 
-class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
+class UserDataSetsView(UsersDataPermission, MultipleFieldLookupMixin, generics.ListCreateAPIView, mixins.DestroyModelMixin):
     queryset = Dataset.objects.all()
     lookup_fields = ['dataset']
     permission_classes = [IsAuthenticated]
     authentication_classes = (TokenAuthentication,)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
     def get_serializer_class(self):
         if self.request.method in SAFE_METHODS:
             return DataSetSerializer
         else:
             return FileUploadSerializer
+
+    def get_object(self):
+        if self.request.method != "DELETE":
+            return super().get_object()
+        return Dataset.objects.filter(name=self.request.query_params['dataset_name'])   # type: ignore
             
 
     def get_queryset(self, *args, **kwargs):
@@ -90,7 +98,7 @@ class UserDataSetsView(MultipleFieldLookupMixin, generics.ListCreateAPIView):
 
     
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
-class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView):
+class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     lookup_fields = ['key', 'value', 'dataset']
@@ -103,7 +111,7 @@ class UserDataPairView(UsersDataPermission, MultipleFieldLookupMixin, generics.R
 
 
 # retrieve works, delete works, need to make custom edit that only allows a change to key value
-class UserDataSetView(UsersDataPermission, generics.ListAPIView):
+class UserDataSetView(UsersDataPermission, generics.ListCreateAPIView):
     queryset = DataPair.objects.all()
     serializer_class = DataPairSerializer
     authentication_classes = (TokenAuthentication, BasicAuthentication)
@@ -121,6 +129,23 @@ class UserDataSetView(UsersDataPermission, generics.ListAPIView):
             'permission_level': f'{set_to_user.permission}',
         }
         return Response(data)
+
+    def post(self, request, *args, **kwargs):
+        try:
+            new_objs = request.data['new_objs']
+        except Exception as e:
+            raise ValidationError()
+
+        already_exist = []
+        to_add = []
+        dataset = self.get_dataset()
+        for obj in new_objs:
+            if DataPair.objects.filter(dataset=dataset, key=obj[0]).exists():
+                already_exist.append(obj[0])
+                continue
+            to_add.append(DataPair(key=obj[0], value=obj[1], dataset=dataset))
+        DataPair.objects.bulk_create(to_add)
+        return HttpResponse(status=201)
 
     def get_dataset(self):
         try:
@@ -232,9 +257,6 @@ class SetToUserView(generics.RetrieveUpdateDestroyAPIView, mixins.CreateModelMix
 
     def get(self, request, *args, **kwargs):
         return self.list(request, *args, **kwargs)
-        # queryset = self.get_queryset()
-        # serialized = self.get_serializer_class()(queryset)
-        # return Response(serialized.data)
 
     def post(self, request, *args, **kwargs):
         try:

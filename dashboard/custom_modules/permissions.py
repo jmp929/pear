@@ -10,9 +10,9 @@ from dashboard.models import (
 class UsersDataPermission(BasePermission):
 
     def has_permission(self, request, view):
-        if SetToUser.objects.filter(user=request.user, dataset=request.dataset).filter(Q(permission='write') | Q(permission='admin')).exists():
+        if SetToUser.objects.filter(user=request.user, dataset=request.dataset).filter(Q(permission='W') | Q(permission='A')).exists():
             return True
-        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, permission='read').exists() and request.method in SAFE_METHODS:
+        elif SetToUser.objects.filter(user=request.user, dataset=request.dataset, permission='R').exists() and request.method in SAFE_METHODS:
             return True
         else:
             return False
