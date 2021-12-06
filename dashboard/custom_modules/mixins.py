@@ -27,7 +27,6 @@ class MultipleFieldLookupMixin(APIView):
             self.check_object_permissions(self.request, obj)
             return obj
         except Exception as e:
-            print(e)
             raise e
 
 

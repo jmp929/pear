@@ -132,7 +132,7 @@ class UserDataSetView(UsersDataPermission, generics.ListCreateAPIView):
 
     def post(self, request, *args, **kwargs):
         try:
-            new_objs = request.data['new_objs']
+            new_objs = json.loads(request.data['new_objs'])
         except Exception as e:
             raise ValidationError()
 
@@ -140,10 +140,10 @@ class UserDataSetView(UsersDataPermission, generics.ListCreateAPIView):
         to_add = []
         dataset = self.get_dataset()
         for obj in new_objs:
-            if DataPair.objects.filter(dataset=dataset, key=obj[0]).exists():
+            if DataPair.objects.filter(dataset=dataset, key=obj["key"]).exists():
                 already_exist.append(obj[0])
                 continue
-            to_add.append(DataPair(key=obj[0], value=obj[1], dataset=dataset))
+            to_add.append(DataPair(key=obj["key"], value=obj["value"], dataset=dataset))
         DataPair.objects.bulk_create(to_add)
         return HttpResponse(status=201)
 
