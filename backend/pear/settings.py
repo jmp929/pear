@@ -111,15 +111,15 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        'USER': os.getenv('DATABASE_USER', 'django'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        # 'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        # 'USER': os.getenv('DATABASE_USER', 'postgres'),
-        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        # 'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
+        # 'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        # 'USER': os.getenv('DATABASE_USER', 'django'),
+        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
+        'USER': os.getenv('DATABASE_USER', 'davidlundberg99'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'Rocker99'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '127.0.0.1'),
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
 }
