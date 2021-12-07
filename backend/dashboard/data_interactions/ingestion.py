@@ -17,11 +17,11 @@ class IngestData:
         if not dataset.exists():
             self.dataset = Dataset.objects.create(name=dataset_name)
             SetToUser.objects.create(
-                user=user, dataset=self.dataset, can_write=True, can_read=True, can_admin=True)
+                user=user, dataset=self.dataset, permission='A')
         else:
-            permissions = SetToUser.objects.filter(
-                user=user, dataset=dataset[0]).values('can_write', 'can_admin')[0]
-            if permissions.get('can_write') == True or permissions.get('can_admin') == True:
+            permission = SetToUser.objects.get(
+                user=user, dataset=dataset[0]).permission
+            if permission == 'W' or permission == 'A':
                 self.dataset = Dataset.objects.get(
                     name=dataset_name, users=user)
 
@@ -38,11 +38,12 @@ class IngestData:
     def ingest_csv(self, csv_file):
         csv_data = self.get_csv_data(csv_file)
 
-        for lines in split_every(csv_data):
+        for lines in split_every(csv_data[1:]):
             objs = []
             for line in lines:
-                DataPair.objects.get_or_create(
-                    key=line[0], value=line[1], dataset=self.dataset)
-            #     objs.append(DataPair(key=line[0], value=line[1], dataset=self.dataset))
-            # DataPair.objects.bulk_create(objs, ignore_conflicts=True)
+                # DataPair.objects.get_or_create(
+                #     key=line[0], value=line[1], dataset=self.dataset)
+                objs.append(
+                    DataPair(key=line[0], value=line[1], dataset=self.dataset))
+            DataPair.objects.bulk_create(objs, ignore_conflicts=True)
         return True

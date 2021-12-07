@@ -35,9 +35,6 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # If DEBUG is true, this adds a layer of functionality. This tells Django its okay to disclose sensitive information whtin its requests and  allows for the debug tool bar
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
-ALLOWED_HOSTS = ['*']
-CORS_ORIGIN_ALLOW_ALL = True
-
 
 # Application definition
 
@@ -48,7 +45,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'debug_toolbar',
 
     # 3rd party apps
     'rest_framework',  # new
@@ -76,16 +72,22 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+]
+
+ALLOWED_CORS_ORIGINS = [
+    'http://localhost:8080'
 ]
 
 if DEBUG:
     # MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
     # INSTALLED_APPS.append("debug_toolbar")
     CORS_ORIGIN_ALLOW_ALL = True
-    ALLOWED_CORS_ORIGINS = ['*']
+    ALLOWED_CORS_ORIGINS = [
+        'http://localhost:8080'
+    ]
 
 ROOT_URLCONF = 'pear.urls'
+
 
 TEMPLATES = [
     {
@@ -116,15 +118,15 @@ WSGI_APPLICATION = 'pear.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
-        'USER': os.getenv('DATABASE_USER', 'django'),
-        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
-        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
-        # 'NAME': os.getenv('DJANGO_DB_NAME', 'postgres'),
-        # 'USER': os.getenv('DATABASE_USER', 'postgres'),
-        # 'PASSWORD': os.getenv('DATABASE_PASSWORD', 'postgres'),
-        # 'HOST': os.getenv('DJANGO_DB_HOST', '172.22.80.1'),
+        'ENGINE': 'django.db.backends.postgresql',
+        # needs to be changed to local setup
+        'NAME': os.getenv('DJANGO_DB_NAME', 'pear-dev'),
+        # needs to be changed to local setup
+        'USER': os.getenv('DJANGO_DB_USER', 'postgres'),
+        # needs to be changed to local setup
+        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'postgres'),
+        # needs to be changed to local setup
+        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
         # needs to be changed to local setup
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
@@ -167,7 +169,6 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
         'users.authentication.TimeLimitTokenAuthentication'
     ],
@@ -194,13 +195,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-STATIC_URL = '/static/'
-
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

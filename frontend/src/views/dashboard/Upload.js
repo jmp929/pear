@@ -38,8 +38,6 @@ function Upload(props) {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        isLoading(false);
-        handleClose();
       });
   };
 
@@ -93,14 +91,6 @@ function Upload(props) {
         <Modal.Footer hidden={details.name == ""}>
           <br />
           <button
-            hidden={!loading}
-            disabled
-            className="modal-btn btn shadow-sm login-btn btn-lg"
-          >
-            Uploading...
-          </button>
-          <button
-            hidden={loading}
             onClick={handleClick}
             className="modal-btn btn shadow-sm login-btn btn-lg"
           >
@@ -110,7 +100,10 @@ function Upload(props) {
             type="submit"
             type="file"
             ref={inputFile}
-            onChange={handleChange}
+            onChange={(e) => {
+              handleChange(e);
+              props.newFileUpload();
+            }}
             style={{ display: "none" }}
           />
         </Modal.Footer>

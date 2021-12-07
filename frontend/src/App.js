@@ -43,10 +43,15 @@ function App() {
 
   // Show Upload CSV Modal
   const [showUploadModal, setShowUploadModal] = useState(false);
-  const addDataHandler = () => {
+  const uploadModalHandler = () => {
     setShowUploadModal(
       (showUploadModal) => (showUploadModal = !showUploadModal)
     );
+  };
+
+  const uploadHandler = () => {
+    uploadModalHandler();
+    window.location.reload();
   };
 
   //Show Token Modal
@@ -67,6 +72,17 @@ function App() {
     addRowsState(
       (RowArray) => (RowArray = [...RowArray, `${RowArray.length}`])
     );
+  };
+  const addRowDataHandler = (entry, index) => {
+    let rows = [...RowArray];
+    rows[index] = entry;
+    addRowsState(rows);
+  };
+  const deleteRowHandler = (entry) => {
+    let rows = [...RowArray];
+    let index = RowArray.indexOf(entry);
+    rows.splice(index, 1);
+    addRowsState(rows);
   };
 
   //Handle Login_details
@@ -114,8 +130,12 @@ function App() {
                   show={showLogoutModal}
                   buttonClicked={logoutHandler}
                 />
-                <Home buttonClicked={addDataHandler} />
-                <Upload show={showUploadModal} buttonClicked={addDataHandler} />
+                <Home buttonClicked={uploadModalHandler} />
+                <Upload
+                  show={showUploadModal}
+                  buttonClicked={uploadModalHandler}
+                  newFileUpload={uploadHandler}
+                />
                 <TokenModal
                   show={showTokenModal}
                   buttonClicked={tokenHandler}
@@ -145,8 +165,12 @@ function App() {
                   show={showLogoutModal}
                   buttonClicked={logoutHandler}
                 />
-                <Upload show={showUploadModal} buttonClicked={addDataHandler} />
-                <AddData buttonClicked={addDataHandler} />
+                <AddData
+                  buttonClicked={addRowsHandler}
+                  editRowData={addRowDataHandler}
+                  deleteRowClicked={(entry) => deleteRowHandler(entry)}
+                  rowArray={RowArray}
+                />
               </Route>
             </>
           )}

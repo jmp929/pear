@@ -11,6 +11,8 @@ class MultipleFieldLookupMixin(APIView):
     
     def get_object(self):
         try:
+            if 'dataset' in self.lookup_fields and 'dataset' not in self.kwargs and 'dataset_name' in self.kwargs: # type: ignore
+                self.kwargs['dataset'] = Dataset.objects.get(name=self.kwargs['dataset_name'])
             queryset = self.get_queryset()             # type: ignore
             queryset = self.filter_queryset(queryset)  # type: ignore
             filter = {}
@@ -20,6 +22,7 @@ class MultipleFieldLookupMixin(APIView):
                        filter[field] = Dataset.objects.get(name=self.kwargs[field])
                     else:
                         filter[field] = self.kwargs[field]
+            print(filter)
             obj = get_object_or_404(queryset, **filter)  # Lookup the object
             self.check_object_permissions(self.request, obj)
             return obj
