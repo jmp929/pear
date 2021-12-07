@@ -15,7 +15,9 @@ function Dataset({ buttonClicked }) {
   var [dataPairs, setData] = useState([]);
 
   const [loading, setLoading] = useState(false);
-
+  const [firstEntry, setFirstEntry] = useState(0);
+  const [showEntries, setShowEntries] = useState(1000);
+  const [search, setSearch] = useState("");
   const reloadData = () => {
     setLoading(true);
     fetch(
@@ -85,22 +87,32 @@ function Dataset({ buttonClicked }) {
     <div>
       <Container className="home-container">
         <Row>
-          <h1 className="display-6 pe-5 pt-3 pb-2">
+          <Col md="auto">
+            <button
+              className="btn btn-create shadow btn-md weight-light"
+              onClick={() => path.push("/home")}
+            >
+              Back to Home
+            </button>
+          </Col>
+        </Row>
+        <Row md="auto">
+          <h1 className="display-4 pe-5 pt-3 pb-2">
             {localStorage.getItem("dataset")}
           </h1>
         </Row>
         <Row>
-          <Col>
+          <Col md="auto">
             <button
-              className="btn btn-create shadow btn-lg weight-light"
+              className="btn btn-create shadow btn-sm weight-light"
               onClick={buttonClicked}
             >
               Get URL and Token for Qualtrics
             </button>
           </Col>
-          <Col md>
+          <Col md="auto">
             <button
-              className="btn btn-create shadow btn-lg weight-light"
+              className="btn btn-create shadow btn-sm weight-light"
               onClick={() => {
                 path.push("/add");
               }}
@@ -108,13 +120,38 @@ function Dataset({ buttonClicked }) {
               Add Data
             </button>
           </Col>
-          <Col>
+          <Col md="auto">
             <button
-              className="btn btn-danger shadow btn-lg weight-light"
+              className="btn btn-danger shadow btn-sm weight-light"
               onClick={handleDelete}
             >
               Delete Dataset
             </button>
+          </Col>
+        </Row>
+        <br />
+        <Row display="box">
+          <Col md="auto">
+            Show{" "}
+            <select
+              onChange={(e) => setShowEntries(parseInt(e.target.value))}
+              type="text"
+              list="dropdown"
+            >
+              <option value={dataPairs.length}>all</option>
+              <option value="10">10</option>
+              <option value="20">20</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+            </select>{" "}
+            Entries
+          </Col>
+          <Col md="auto">
+            Search:{" "}
+            <input
+              type="text"
+              onChange={(e) => setSearch(e.target.value)}
+            ></input>
           </Col>
         </Row>
         <br />
@@ -145,33 +182,61 @@ function Dataset({ buttonClicked }) {
                     </td>
                   </tr>
                 ) : (
-                  dataPairs.map((entry) => {
-                    return (
-                      <tr>
-                        <td>{entry.key}</td>
-                        <td>{entry.value}</td>
-                        <td>
-                          <button
-                            value="Remove"
-                            type="button"
-                            className="btn btn-sm btn-danger"
-                            style={{
-                              width: 50,
-                            }}
-                            onClick={() => handleDeleteRow(entry)}
-                          >
-                            <img src={trashcan} className="delete-trashcan" />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })
+                  dataPairs
+                    .filter(
+                      (entry) =>
+                        entry.key.includes(search) ||
+                        entry.value.includes(search)
+                    )
+                    .slice(firstEntry, firstEntry + showEntries)
+                    .map((entry) => {
+                      return (
+                        <tr>
+                          <td>{entry.key}</td>
+                          <td>{entry.value}</td>
+                          <td>
+                            <button
+                              value="Remove"
+                              type="button"
+                              className="btn btn-sm btn-danger"
+                              style={{
+                                width: 50,
+                              }}
+                              onClick={() => handleDeleteRow(entry)}
+                            >
+                              <img src={trashcan} className="delete-trashcan" />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })
                 )}
               </React.Fragment>
             </tbody>
             <tfoot className="table-header-footer">
               <tr>
-                <th colSpan="3"></th>
+                <th colSpan="3">
+                  <Row>
+                    <Col>
+                      <button
+                        className="btn btn-create bt-lg weight-light"
+                        onClick={() => setFirstEntry(firstEntry - showEntries)}
+                        hidden={firstEntry == 0 || showEntries == 1000}
+                      >
+                        Previous page
+                      </button>
+                    </Col>
+                    <Col>
+                      <button
+                        className="btn btn-create bt-lg weight-light"
+                        onClick={() => setFirstEntry(firstEntry + showEntries)}
+                        hidden={firstEntry + showEntries >= dataPairs.length}
+                      >
+                        Next page
+                      </button>
+                    </Col>
+                  </Row>
+                </th>
               </tr>
             </tfoot>
           </Table>

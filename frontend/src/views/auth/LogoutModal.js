@@ -27,7 +27,7 @@ function LogoutModal(props) {
     <div>
       <Modal show={props.show} onHide={props.buttonClicked}>
         <Modal.Header className="bg-light">
-          <Modal.Title className="display-5 mx-auto">
+          <Modal.Title className="display-7 mx-auto">
             Are you sure you want to logout?
           </Modal.Title>
         </Modal.Header>
