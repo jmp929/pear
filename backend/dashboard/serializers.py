@@ -32,7 +32,8 @@ class DataSetSerializer(GetRelatedMixin, serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        exclude = ("created", "last_queried", "last_edited", "users", "id")
+        fields = ("name", "created", "last_queried",
+                  "last_edited", "users", "id")
 
 
 class AdminDataSetSerializer(serializers.ModelSerializer):
@@ -40,7 +41,7 @@ class AdminDataSetSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Dataset
-        exclude = ("created", "last_queried", "last_edited")
+        fields = ("created", "last_queried", "last_edited", "users", "id")
 
     def get_users(self, obj):
         queryset = SetToUser.objects.filter(dataset=obj)
