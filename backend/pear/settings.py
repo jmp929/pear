@@ -80,6 +80,8 @@ ALLOWED_CORS_ORIGINS = [
     '*'
 ]
 
+ALLOWED_HOSTS = ['*']
+
 if DEBUG:
     # MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
     # INSTALLED_APPS.append("debug_toolbar")
