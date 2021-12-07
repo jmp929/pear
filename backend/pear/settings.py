@@ -74,9 +74,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ORIGIN_ALLOW_ALL = True
+
 ALLOWED_CORS_ORIGINS = [
-    'http://localhost:8080'
+    '*'
 ]
+
+ALLOWED_HOSTS = ['*']
 
 if DEBUG:
     # MIDDLEWARE.append("debug_toolbar.middleware.DebugToolbarMiddleware")
@@ -120,13 +124,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         # needs to be changed to local setup
-        'NAME': os.getenv('DJANGO_DB_NAME', 'pear-dev'),
-        # needs to be changed to local setup
-        'USER': os.getenv('DJANGO_DB_USER', 'postgres'),
-        # needs to be changed to local setup
-        'PASSWORD': os.getenv('DJANGO_DB_PASSWORD', 'postgres'),
-        # needs to be changed to local setup
-        'HOST': os.getenv('DJANGO_DB_HOST', 'localhost'),
+        'NAME': os.getenv('DJANGO_DB_NAME', 'django_db'),
+        'USER': os.getenv('DATABASE_USER', 'django'),
+        'PASSWORD': os.getenv('DATABASE_PASSWORD', 'afiLQho3r50iSoKb'),
+        'HOST': os.getenv('DJANGO_DB_HOST', '172.30.186.143'),
         # needs to be changed to local setup
         'PORT': os.getenv('DJANGO_DB_PORT', '5432'),
     }
